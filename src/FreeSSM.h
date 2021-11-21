@@ -23,7 +23,6 @@
 
 
 #include <QtGui>
-#include "Languages.h"
 #include "AbstractDiagInterface.h"
 #include "SerialPassThroughDiagInterface.h"
 #include "J2534DiagInterface.h"

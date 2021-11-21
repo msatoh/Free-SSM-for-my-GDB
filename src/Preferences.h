@@ -30,7 +30,6 @@
 	#error "Operating system not supported !"
 #endif
 #include <QtGui>
-#include "Languages.h"
 #include "AbstractDiagInterface.h"
 #include "SerialPassThroughDiagInterface.h"
 #include "ATcommandControlledDiagInterface.h"
