@@ -389,12 +389,12 @@ void FreeSSM::preferences()
 }
 
 
-// void FreeSSM::help()
-// {
-// 	QString helpurlstr( QCoreApplication::applicationDirPath() );
-// 	helpurlstr += "/doc/help_" + _language + ".html";
-// 	QDesktopServices::openUrl( QUrl(helpurlstr) );
-// }
+void FreeSSM::help()
+{
+	QString helpurlstr( QCoreApplication::applicationDirPath() );
+	helpurlstr += "/doc/help_" + _language + ".html";
+	QDesktopServices::openUrl( QUrl(helpurlstr) );
+}
 
 
 void FreeSSM::about()
