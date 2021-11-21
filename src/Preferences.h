@@ -68,7 +68,7 @@ public:
 	~Preferences();
 
 public slots:
-	void switchLanguage(int langindex);
+	//void switchLanguage(int langindex);
 	void switchGUIstyle(QString style);
 	void selectInterfaceType(int index);
 	void selectInterfaceName(int index);

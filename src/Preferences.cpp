@@ -56,10 +56,10 @@ Preferences::Preferences(QMainWindow *parent, AbstractDiagInterface::interface_t
 	{
 		QString langname = QLocale::languageToString( __supportedLocales.at(k).language() );
 		QString langname_tr = QCoreApplication::translate( "Language", langname.toUtf8() );
-		language_comboBox->addItem( langname_tr );
+	//	language_comboBox->addItem( langname_tr );
 	}
 	_lastlangindex = __supportedLocales.indexOf( QLocale(_language_current) );
-	language_comboBox->setCurrentIndex(_lastlangindex);
+	//language_comboBox->setCurrentIndex(_lastlangindex);
 	/* NOTE: no need to implement fallback, selected language is always valid (has been checked/corrected at program start)
 	         Apart from that, language switching wouldn't work at this point   */
 	// GUI-STYLES:
@@ -117,8 +117,8 @@ Preferences::Preferences(QMainWindow *parent, AbstractDiagInterface::interface_t
 			*_r_interfacefilename = "";
 		}
 	}
-	// CONNECT SIGNALS AND SLOTS:
-	connect( language_comboBox, SIGNAL( activated(int) ), this, SLOT( switchLanguage(int) ) );
+	// // CONNECT SIGNALS AND SLOTS:
+	// connect( language_comboBox, SIGNAL( activated(int) ), this, SLOT( switchLanguage(int) ) );
 	connect( guistyle_comboBox, SIGNAL( activated(QString) ), this, SLOT( switchGUIstyle(QString) ) );
 	connect( interfaceType_comboBox, SIGNAL( activated(int) ), this, SLOT( selectInterfaceType(int) ) );
 	connect( interfaceName_comboBox, SIGNAL( activated(int) ), this, SLOT( selectInterfaceName(int) ) );
@@ -131,7 +131,7 @@ Preferences::Preferences(QMainWindow *parent, AbstractDiagInterface::interface_t
 
 Preferences::~Preferences()
 {
-	disconnect( language_comboBox, SIGNAL( activated(int) ), this, SLOT( switchLanguage(int) ) );
+// 	disconnect( language_comboBox, SIGNAL( activated(int) ), this, SLOT( switchLanguage(int) ) );
 	disconnect( guistyle_comboBox, SIGNAL( activated(QString) ), this, SLOT( switchGUIstyle(QString) ) );
 	disconnect( interfaceType_comboBox, SIGNAL( activated(int) ), this, SLOT( selectInterfaceType(int) ) );
 	disconnect( interfaceName_comboBox, SIGNAL( activated(int) ), this, SLOT( selectInterfaceName(int) ) );
@@ -141,49 +141,49 @@ Preferences::~Preferences()
 }
 
 
-void Preferences::switchLanguage(int langindex) //'0' is English
-{
-	if (langindex == _lastlangindex) return;
-	// SET UP NEW TRANSLATOR
-	QTranslator *translator_new = new QTranslator;
-	// LOAD LANGUAGE:
-	QString AppsPath( QCoreApplication::applicationDirPath() );
-	//QString langcode = __supportedLocales.at(langindex).name().section('_', 0, 0);
-	QString langcode = __supportedLocales.at(0).name().section('_', 0, 0);
-	if ( translator_new->load("FreeSSM_" + langcode + ".qm", AppsPath) )
-	{
-		_language_current = langcode;
-		_lastlangindex = 0;
-		// Send new language settings to FreeSSM and retranslate FreeSSM-Window:
-		emit languageSelChanged(_language_current, translator_new);
-		// Retranslate window content:
-		retranslateUi(this);
-		// Retranslate Language names in combobox:
-		language_comboBox->clear();
-		for (int k=0; k<__supportedLocales.size(); k++)
-		{
-			QString langname = QLocale::languageToString( __supportedLocales.at(k).language() );
-			QString langname_tr = QCoreApplication::translate( "Language", langname.toUtf8() );
-			language_comboBox->addItem( langname_tr );
-		}
-		//language_comboBox->setCurrentIndex(langindex);
-		language_comboBox->setCurrentIndex(0);
-	}
-	else
-	{
-		// DELETE NEW TRANSLATOR AND USE OLD LANGUAGE AGAIN:
-		delete translator_new;
-		language_comboBox->setCurrentIndex(_lastlangindex);
-		QMessageBox msg( QMessageBox::Critical, tr("Error"), tr("Error:\n- Language file missing or damaged -"), QMessageBox::Ok, this);
-		QFont msgfont = msg.font();
-		msgfont.setPointSize(9);
-		msg.setFont( msgfont );
-		msg.show();
-		msg.exec();
-		msg.close();
-		return;
-	}
-}
+// void Preferences::switchLanguage(int langindex) //'0' is English
+// {
+// 	if (langindex == _lastlangindex) return;
+// 	// SET UP NEW TRANSLATOR
+// 	QTranslator *translator_new = new QTranslator;
+// 	// LOAD LANGUAGE:
+// 	QString AppsPath( QCoreApplication::applicationDirPath() );
+// 	//QString langcode = __supportedLocales.at(langindex).name().section('_', 0, 0);
+// 	QString langcode = __supportedLocales.at(0).name().section('_', 0, 0);
+// 	if ( translator_new->load("FreeSSM_" + langcode + ".qm", AppsPath) )
+// 	{
+// 		_language_current = langcode;
+// 		_lastlangindex = 0;
+// 		// Send new language settings to FreeSSM and retranslate FreeSSM-Window:
+// 		emit languageSelChanged(_language_current, translator_new);
+// 		// Retranslate window content:
+// 		retranslateUi(this);
+// 		// Retranslate Language names in combobox:
+// 		language_comboBox->clear();
+// 		for (int k=0; k<__supportedLocales.size(); k++)
+// 		{
+// 			QString langname = QLocale::languageToString( __supportedLocales.at(k).language() );
+// 			QString langname_tr = QCoreApplication::translate( "Language", langname.toUtf8() );
+// 			language_comboBox->addItem( langname_tr );
+// 		}
+// 		//language_comboBox->setCurrentIndex(langindex);
+// 		language_comboBox->setCurrentIndex(0);
+// 	}
+// 	else
+// 	{
+// 		// DELETE NEW TRANSLATOR AND USE OLD LANGUAGE AGAIN:
+// 		delete translator_new;
+// 		language_comboBox->setCurrentIndex(_lastlangindex);
+// 		QMessageBox msg( QMessageBox::Critical, tr("Error"), tr("Error:\n- Language file missing or damaged -"), QMessageBox::Ok, this);
+// 		QFont msgfont = msg.font();
+// 		msgfont.setPointSize(9);
+// 		msg.setFont( msgfont );
+// 		msg.show();
+// 		msg.exec();
+// 		msg.close();
+// 		return;
+// 	}
+// }
 
 
 void Preferences::switchGUIstyle(QString style)
@@ -477,7 +477,7 @@ void Preferences::closeEvent(QCloseEvent *event)
 	{
 		// Switch back to old translation:
 		QLocale loc( _language_old );
-		switchLanguage( __supportedLocales.indexOf(loc) );
+		//switchLanguage( __supportedLocales.indexOf(loc) );
 		// Switch back to old GUI-style:
 		switchGUIstyle( _style_old );
 	}

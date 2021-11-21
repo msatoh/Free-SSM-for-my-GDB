@@ -114,16 +114,6 @@
     </property>
    </item>
   </widget>
-  <widget class="QComboBox" name="language_comboBox">
-   <property name="geometry">
-    <rect>
-     <x>150</x>
-     <y>49</y>
-     <width>285</width>
-     <height>22</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLabel" name="interfaceName_label">
    <property name="geometry">
     <rect>
@@ -249,7 +239,6 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>language_comboBox</tabstop>
   <tabstop>interfaceType_comboBox</tabstop>
   <tabstop>testinterface_pushButton</tabstop>
   <tabstop>ok_pushButton</tabstop>
