@@ -76,8 +76,6 @@ public slots:
 
 private slots:
 	void preferences();
-	void help();
-//	void about();
 	void retranslate(QString newlanguage, QTranslator *newtranslator);
 	void dumpCUdata();
 

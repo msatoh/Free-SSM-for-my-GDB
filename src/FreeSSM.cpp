@@ -387,28 +387,6 @@ void FreeSSM::preferences()
 	delete preferencesdlg;
 }
 
-
-void FreeSSM::help()
-{
-	QString helpurlstr( QCoreApplication::applicationDirPath() );
-	helpurlstr += "/doc/help_" + _language + ".html";
-	QDesktopServices::openUrl( QUrl(helpurlstr) );
-}
-
-
-// void FreeSSM::about()
-// {
-// 	About *aboutdlg = new About(this, _language);
-// #ifdef SMALL_RESOLUTION
-// 	aboutdlg->showFullScreen();
-// #else
-// 	aboutdlg->show();
-// #endif
-// 	aboutdlg->exec();
-// 	delete aboutdlg;
-// }
-
-
 AbstractDiagInterface * FreeSSM::initInterface()
 {
 	// Check if an interface is selected:
