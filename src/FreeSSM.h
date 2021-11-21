@@ -37,7 +37,6 @@
 #include "CruiseControlDialog.h"
 #include "AirConDialog.h"
 #include "Preferences.h"
-//#include "About.h"
 #include "ui_FreeSSM.h"
 #include "SSMCUdata.h"
 

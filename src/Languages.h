@@ -24,21 +24,6 @@
 #include <QVector>
 #include <QStringList>
 
-
-/* Supported locales (languages) */
-static const QVector<QLocale> __supportedLocales = QVector<QLocale>()
-	<< QLocale::English
-	/*<< QLocale::German
-	<< QLocale::Turkish*/;
-	/* ===> ADD NEW LOCALES HERE <=== */
-
-/* Make language names translatable */
-#if 0
-QT_TRANSLATE_NOOP("Language", "English")
-// QT_TRANSLATE_NOOP("Language", "German")
-// QT_TRANSLATE_NOOP("Language", "Turkish")
-/* ===> ADD NEW LANGUAGE NAMES HERE <=== */
-#endif
-
+static const QVector<QLocale> __supportedLocales = QVector<QLocale>() << QLocale::English;
 
 #endif
