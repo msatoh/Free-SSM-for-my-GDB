@@ -222,7 +222,6 @@ FreeSSM::FreeSSM(QApplication *app)
 	connect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	connect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	connect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
-//	connect( about_pushButton, SIGNAL( released() ), this, SLOT( about() ) );
 	connect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
 	// NOTE: using released() instead of pressed() as workaround for a Qt-Bug occuring under MS Windows
 	connect( _dump_action, SIGNAL(triggered()), this, SLOT(dumpCUdata()) );
@@ -238,7 +237,6 @@ FreeSSM::~FreeSSM()
 	disconnect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	disconnect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	disconnect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
-//	disconnect( about_pushButton, SIGNAL( released() ), this, SLOT( about() ) );
 	disconnect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
 	delete _dump_action;
 #ifndef SMALL_RESOLUTION

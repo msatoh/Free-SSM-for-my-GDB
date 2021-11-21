@@ -141,18 +141,19 @@ Preferences::~Preferences()
 }
 
 
-void Preferences::switchLanguage(int langindex)
+void Preferences::switchLanguage(int langindex) //'0' is English
 {
 	if (langindex == _lastlangindex) return;
 	// SET UP NEW TRANSLATOR
 	QTranslator *translator_new = new QTranslator;
 	// LOAD LANGUAGE:
 	QString AppsPath( QCoreApplication::applicationDirPath() );
-	QString langcode = __supportedLocales.at(langindex).name().section('_', 0, 0);
+	//QString langcode = __supportedLocales.at(langindex).name().section('_', 0, 0);
+	QString langcode = __supportedLocales.at(0).name().section('_', 0, 0);
 	if ( translator_new->load("FreeSSM_" + langcode + ".qm", AppsPath) )
 	{
 		_language_current = langcode;
-		_lastlangindex = langindex;
+		_lastlangindex = 0;
 		// Send new language settings to FreeSSM and retranslate FreeSSM-Window:
 		emit languageSelChanged(_language_current, translator_new);
 		// Retranslate window content:
@@ -165,7 +166,8 @@ void Preferences::switchLanguage(int langindex)
 			QString langname_tr = QCoreApplication::translate( "Language", langname.toUtf8() );
 			language_comboBox->addItem( langname_tr );
 		}
-		language_comboBox->setCurrentIndex(langindex);
+		//language_comboBox->setCurrentIndex(langindex);
+		language_comboBox->setCurrentIndex(0);
 	}
 	else
 	{
