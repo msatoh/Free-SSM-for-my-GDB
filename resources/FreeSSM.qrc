@@ -44,8 +44,5 @@
     <file>icons/oxygen/32x32/help-browser.png</file>
     <file>icons/oxygen/32x32/preferences-system.png</file>
     <file>icons/oxygen/32x32/system-shutdown.png</file>
-    <file>license_de.html</file>
-    <file>license_en.html</file>
-    <file>license_tr.html</file>
   </qresource>
 </RCC>
