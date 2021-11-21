@@ -295,7 +295,7 @@
   <tabstop>cruisecontrol_pushButton</tabstop>
   <tabstop>aircon_pushButton</tabstop>
   <tabstop>preferences_pushButton</tabstop>
-  <tabstop>help_pushButton</tabstop>
+
   <tabstop>about_pushButton</tabstop>
   <tabstop>exit_pushButton</tabstop>
  </tabstops>

@@ -215,13 +215,13 @@ FreeSSM::FreeSSM(QApplication *app)
 	_dump_action->setShortcut( QKeySequence("Ctrl+Alt+Return") );
 	this->addAction(_dump_action);
 	// CONNECT SIGNALS/SLOTS:
+	/* engine(); */
 	connect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
 	connect( transmission_pushButton, SIGNAL( released() ), this, SLOT( transmission() ) );
 	connect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
 	connect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	connect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	connect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
-//	connect( help_pushButton, SIGNAL( released() ), this, SLOT( help() ) );
 //	connect( about_pushButton, SIGNAL( released() ), this, SLOT( about() ) );
 	connect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
 	// NOTE: using released() instead of pressed() as workaround for a Qt-Bug occuring under MS Windows
@@ -238,7 +238,6 @@ FreeSSM::~FreeSSM()
 	disconnect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	disconnect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	disconnect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
-//	disconnect( help_pushButton, SIGNAL( released() ), this, SLOT( help() ) );
 //	disconnect( about_pushButton, SIGNAL( released() ), this, SLOT( about() ) );
 	disconnect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
 	delete _dump_action;
