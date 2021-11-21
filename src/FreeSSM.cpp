@@ -396,17 +396,17 @@ void FreeSSM::help()
 }
 
 
-void FreeSSM::about()
-{
-	About *aboutdlg = new About(this, _language);
-#ifdef SMALL_RESOLUTION
-	aboutdlg->showFullScreen();
-#else
-	aboutdlg->show();
-#endif
-	aboutdlg->exec();
-	delete aboutdlg;
-}
+// void FreeSSM::about()
+// {
+// 	About *aboutdlg = new About(this, _language);
+// #ifdef SMALL_RESOLUTION
+// 	aboutdlg->showFullScreen();
+// #else
+// 	aboutdlg->show();
+// #endif
+// 	aboutdlg->exec();
+// 	delete aboutdlg;
+// }
 
 
 AbstractDiagInterface * FreeSSM::initInterface()

@@ -37,7 +37,7 @@
 #include "CruiseControlDialog.h"
 #include "AirConDialog.h"
 #include "Preferences.h"
-#include "About.h"
+//#include "About.h"
 #include "ui_FreeSSM.h"
 #include "SSMCUdata.h"
 
@@ -77,7 +77,7 @@ public slots:
 private slots:
 	void preferences();
 	void help();
-	void about();
+//	void about();
 	void retranslate(QString newlanguage, QTranslator *newtranslator);
 	void dumpCUdata();
 

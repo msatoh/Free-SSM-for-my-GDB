@@ -20,7 +20,6 @@ HEADERS += src/FreeSSM.h \
            src/CruiseControlDialog.h \
            src/AirConDialog.h \
            src/Preferences.h \
-           src/About.h \
            src/FSSMdialogs.h \
            src/ActuatorTestDlg.h \
            src/AbstractDiagInterface.h \
@@ -72,7 +71,6 @@ SOURCES += src/main.cpp \
            src/CruiseControlDialog.cpp \
            src/AirConDialog.cpp \
            src/Preferences.cpp \
-           src/About.cpp \
            src/FSSMdialogs.cpp \
            src/ActuatorTestDlg.cpp \
            src/AbstractDiagInterface.cpp \
@@ -129,7 +127,6 @@ small-resolution {
            ui/small/CUinfo_Transmission.ui \
            ui/small/CUinfo_simple.ui \
            ui/small/Preferences.ui \
-           ui/small/About.ui \
            ui/small/ActuatorTestDlg.ui
 } else {
   FORMS += ui/FreeSSM.ui \
@@ -146,7 +143,6 @@ small-resolution {
            ui/CUinfo_Transmission.ui \
            ui/CUinfo_simple.ui \
            ui/Preferences.ui \
-           ui/About.ui \
            ui/ActuatorTestDlg.ui
 }
 
