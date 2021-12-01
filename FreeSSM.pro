@@ -23,8 +23,6 @@ HEADERS += src/FreeSSM.h \
            src/AbstractDiagInterface.h \
            src/ATcommandControlledDiagInterface.h \
            src/SerialPassThroughDiagInterface.h \
-           src/J2534.h \
-           src/J2534misc.h \
            src/SSMP1communication.h \
            src/SSMP1communication_procedures.h \
            src/SSMP1base.h \
@@ -71,7 +69,6 @@ SOURCES += src/main.cpp \
            src/AbstractDiagInterface.cpp \
            src/ATcommandControlledDiagInterface.cpp \
            src/SerialPassThroughDiagInterface.cpp \
-           src/J2534misc.cpp \
            src/SSMP1communication.cpp \
            src/SSMP1communication_procedures.cpp \
            src/SSMP1base.cpp \
@@ -241,11 +238,9 @@ unix {
        DEPENDPATH += src/linux
        INCLUDEPATH += src/linux
        HEADERS += src/linux/serialCOM.h \
-                  src/linux/TimeM.h \
-                  src/linux/J2534_API.h
+                  src/linux/TimeM.h 
        SOURCES += src/linux/serialCOM.cpp \
-                  src/linux/TimeM.cpp \
-                  src/linux/J2534_API.cpp
+                  src/linux/TimeM.cpp 
        LIBS += -ldl -lrt
 }
 
@@ -254,10 +249,8 @@ win32 {
        DEPENDPATH += src/windows
        INCLUDEPATH += src/windows
        HEADERS += src/windows/serialCOM.h \
-                  src/windows/TimeM.h \
-                  src/windows/J2534_API.h
+                  src/windows/TimeM.h 
        SOURCES += src/windows/serialCOM.cpp \
-                  src/windows/TimeM.cpp \
-                  src/windows/J2534_API.cpp
+                  src/windows/TimeM.cpp 
        RC_FILE = resources/FreeSSM_WinAppIcon.rc
 }
