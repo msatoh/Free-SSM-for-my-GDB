@@ -25,7 +25,6 @@
 #include <QtGui>
 #include "AbstractDiagInterface.h"
 #include "SerialPassThroughDiagInterface.h"
-#include "J2534DiagInterface.h"
 #include "ATcommandControlledDiagInterface.h"
 #include "SSMP1communication.h"
 #include "SSMP2communication.h"

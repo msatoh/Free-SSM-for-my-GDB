@@ -159,54 +159,32 @@ FreeSSM::FreeSSM(QApplication *app)
 		}
 	}
 	// CHECK THE SAVED INTERFACE SETTINGS AND CORRECT IF NECESSARY:
-	if (savedinterfacetype == QString::number(AbstractDiagInterface::interface_J2534))	// J2534-Pass-Through
+
+	// Serial Pass-Through, AT-comand controlled (e.g. ELM, AGV, Diamex) or invalid
+	if (savedinterfacetype == QString::number(AbstractDiagInterface::interface_ATcommandControlled))
+		_iface_type = AbstractDiagInterface::interface_ATcommandControlled;
+	else
+		_iface_type = AbstractDiagInterface::interface_serialPassThrough;
+	std::vector<std::string> portlist;
+	portlist = serialCOM::GetAvailablePorts();
+	if (portlist.size())
 	{
-		_iface_type = AbstractDiagInterface::interface_J2534;
-		const std::vector<J2534Library> J2534libs = J2534_API::getAvailableJ2534Libs();
-		if (J2534libs.size())
+		if (!savedinterfacetype.isEmpty() && !savedinterfacefilename.isEmpty())
 		{
-			if (!savedinterfacefilename.isEmpty())
+			for (unsigned int k=0; k<portlist.size(); k++)
 			{
-				for (const J2534Library& lib : J2534libs)
+				if (savedinterfacefilename == QString::fromStdString(portlist.at(k)))
 				{
-					if (savedinterfacefilename == QString::fromStdString(lib.path))
-					{
-						_iface_filename = savedinterfacefilename;
-						break;
-					}
+					_iface_filename = savedinterfacefilename;
+					break;
 				}
 			}
-			if (_iface_filename.isEmpty())
-				_iface_filename = QString::fromStdString(J2534libs.at(0).path);
 		}
-		// NOTE: otherwise _iface_filename remains empty
+		if (_iface_filename.isEmpty())
+			_iface_filename = QString::fromStdString(portlist.at(0));
 	}
-	else	// Serial Pass-Through, AT-comand controlled (e.g. ELM, AGV, Diamex) or invalid
-	{
-		if (savedinterfacetype == QString::number(AbstractDiagInterface::interface_ATcommandControlled))
-			_iface_type = AbstractDiagInterface::interface_ATcommandControlled;
-		else
-			_iface_type = AbstractDiagInterface::interface_serialPassThrough;
-		std::vector<std::string> portlist;
-		portlist = serialCOM::GetAvailablePorts();
-		if (portlist.size())
-		{
-			if (!savedinterfacetype.isEmpty() && !savedinterfacefilename.isEmpty())
-			{
-				for (unsigned int k=0; k<portlist.size(); k++)
-				{
-					if (savedinterfacefilename == QString::fromStdString(portlist.at(k)))
-					{
-						_iface_filename = savedinterfacefilename;
-						break;
-					}
-				}
-			}
-			if (_iface_filename.isEmpty())
-				_iface_filename = QString::fromStdString(portlist.at(0));
-		}
-		// NOTE: otherwise _iface_filename remains empty
-	}
+	// NOTE: otherwise _iface_filename remains empty
+
 	// CREATE ACTION FOR DUMPING CONTROL UNIT ID-DATA TO FILE:
 	_dump_action = new QAction(this);
 	_dump_action->setShortcut( QKeySequence("Ctrl+Alt+Return") );
@@ -370,10 +348,6 @@ AbstractDiagInterface * FreeSSM::initInterface()
 	if (_iface_type == AbstractDiagInterface::interface_serialPassThrough)
 	{
 		diagInterface = new SerialPassThroughDiagInterface;
-	}
-	else if (_iface_type == AbstractDiagInterface::interface_J2534)
-	{
-		diagInterface = new J2534DiagInterface;
 	}
 	else if (_iface_type == AbstractDiagInterface::interface_ATcommandControlled)
 	{
