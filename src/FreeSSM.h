@@ -31,7 +31,6 @@
 #include "SSMP2communication.h"
 #include "libFSSM.h"
 #include "EngineDialog.h"
-#include "TransmissionDialog.h"
 #include "ABSdialog.h"
 #include "CruiseControlDialog.h"
 #include "AirConDialog.h"

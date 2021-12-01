@@ -14,7 +14,6 @@ INCLUDEPATH += . src src/tinyxml
 HEADERS += src/FreeSSM.h \
            src/CmdLine.h \
            src/EngineDialog.h \
-           src/TransmissionDialog.h \
            src/ABSdialog.h \
            src/CruiseControlDialog.h \
            src/AirConDialog.h \
@@ -39,7 +38,6 @@ HEADERS += src/FreeSSM.h \
            src/ControlUnitDialog.h \
            src/CUinfo_abstract.h \
            src/CUinfo_Engine.h \
-           src/CUinfo_Transmission.h \
            src/CUinfo_simple.h \
            src/CUcontent_DCs_abstract.h \
            src/CUcontent_DCs_engine.h \
@@ -65,7 +63,6 @@ SOURCES += src/main.cpp \
            src/FreeSSM.cpp \
            src/CmdLine.cpp \
            src/EngineDialog.cpp \
-           src/TransmissionDialog.cpp \
            src/ABSdialog.cpp \
            src/CruiseControlDialog.cpp \
            src/AirConDialog.cpp \
@@ -88,7 +85,6 @@ SOURCES += src/main.cpp \
            src/AddMBsSWsDlg.cpp \
            src/ControlUnitDialog.cpp \
            src/CUinfo_Engine.cpp \
-           src/CUinfo_Transmission.cpp \
            src/CUinfo_simple.cpp \
            src/CUcontent_DCs_abstract.cpp \
            src/CUcontent_DCs_engine.cpp \
@@ -123,7 +119,6 @@ small-resolution {
            ui/small/CUcontent_sysTests.ui \
            ui/small/AddMBsSWsDlg.ui \
            ui/small/CUinfo_Engine.ui \
-           ui/small/CUinfo_Transmission.ui \
            ui/small/CUinfo_simple.ui \
            ui/small/Preferences.ui \
            ui/small/ActuatorTestDlg.ui
@@ -139,7 +134,6 @@ small-resolution {
            ui/CUcontent_sysTests.ui \
            ui/AddMBsSWsDlg.ui \
            ui/CUinfo_Engine.ui \
-           ui/CUinfo_Transmission.ui \
            ui/CUinfo_simple.ui \
            ui/Preferences.ui \
            ui/ActuatorTestDlg.ui
