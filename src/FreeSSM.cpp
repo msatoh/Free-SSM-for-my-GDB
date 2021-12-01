@@ -214,7 +214,6 @@ FreeSSM::FreeSSM(QApplication *app)
 	// CONNECT SIGNALS/SLOTS:
 	/* engine(); */
 	connect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
-	connect( transmission_pushButton, SIGNAL( released() ), this, SLOT( transmission() ) );
 	connect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
 	connect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	connect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
@@ -229,7 +228,6 @@ FreeSSM::~FreeSSM()
 {
 	disconnect( _dump_action, SIGNAL( triggered() ), this, SLOT( dumpCUdata() ) );
 	disconnect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
-	disconnect( transmission_pushButton, SIGNAL( released() ), this, SLOT( transmission() ) );
 	disconnect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
 	disconnect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	disconnect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
@@ -270,29 +268,6 @@ void FreeSSM::engine(QStringList cmdline_args)
 		if (enginedialog->setup( csel, cmdline_args ))
 			enginedialog->exec();
 		delete enginedialog;
-		delete diagInterface;
-	}
-}
-
-
-void FreeSSM::transmission(QStringList cmdline_args)
-{
-	if (_dumping) return;
-	ControlUnitDialog::ContentSelection csel = ControlUnitDialog::ContentSelection::DCsMode;
-	if(!getContentSelectionFromCmdLine(&cmdline_args, &csel))
-		exit(ERROR_BADCMDLINEARGS);
-	AbstractDiagInterface *diagInterface = initInterface();
-	if (diagInterface)
-	{
-		TransmissionDialog *transmissiondialog = new TransmissionDialog(diagInterface, _language);
-#ifdef SMALL_RESOLUTION
-		transmissiondialog->showFullScreen();
-#else
-		transmissiondialog->show();
-#endif
-		if (transmissiondialog->setup( csel, cmdline_args ))
-			transmissiondialog->exec();
-		delete transmissiondialog;
 		delete diagInterface;
 	}
 }
