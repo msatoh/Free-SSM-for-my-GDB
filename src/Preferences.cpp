@@ -70,13 +70,7 @@ Preferences::Preferences(QMainWindow *parent, AbstractDiagInterface::interface_t
 		guistyle_comboBox->setEnabled( false );
 	// INTERFACES:
 	int if_name_index = -1;
-	if (_newinterfacetype == AbstractDiagInterface::interface_J2534) // J2534-Pass-Through
-	{
-		interfaceType_comboBox->setCurrentIndex(1);
-		selectInterfaceType(1); // NOTE: fills _J2534libraryPaths, changes _newinterfacefilename
-		if_name_index = _J2534libraryPaths.indexOf(*_r_interfacefilename);
-	}
-	else if (_newinterfacetype == AbstractDiagInterface::interface_ATcommandControlled) // AT-comand controlled (e.g. ELM, AGV, Diamex)
+	if (_newinterfacetype == AbstractDiagInterface::interface_ATcommandControlled) // AT-comand controlled (e.g. ELM, AGV, Diamex)
 	{
 		interfaceType_comboBox->setCurrentIndex(2);
 		selectInterfaceType(2);
@@ -148,31 +142,15 @@ void Preferences::selectInterfaceType(int index)
 	_J2534libraryPaths.clear();
 	_newinterfacefilename = "";
 	QStringList deviceNames;
-	if (index == 1)	// J2534-Pass-Through
-	{
-		_newinterfacetype = AbstractDiagInterface::interface_J2534;
-		interfaceName_label->setText(tr("Interface-Name:"));
-		for (const J2534Library& lib : J2534_API::getAvailableJ2534Libs())
-		{
-			QFileInfo fileinfo(QString::fromStdString(lib.path));
-			if (fileinfo.isFile())
-			{
-				deviceNames.push_back(QString::fromStdString(lib.name));
-				_J2534libraryPaths.push_back(QString::fromStdString(lib.path));
-			}
-		}
-	}
-	else if ((index == 0) || (index == 2))	// Serial Pass-Through or AT-comand controlled (e.g. ELM, AGV, Diamex)
-	{
-		if (index == 2)
-			_newinterfacetype = AbstractDiagInterface::interface_ATcommandControlled;
-		else	// index == 0
-			_newinterfacetype = AbstractDiagInterface::interface_serialPassThrough;
-		interfaceName_label->setText(tr("Serial Port:"));
-		std::vector<std::string> portlist = serialCOM::GetAvailablePorts();
-		for (unsigned int k=0; k<portlist.size(); k++)
-			deviceNames.push_back(QString::fromStdString(portlist.at(k)));
-	}
+	// Serial Pass-Through or AT-comand controlled (e.g. ELM, AGV, Diamex)
+	if (index == 1)
+		_newinterfacetype = AbstractDiagInterface::interface_ATcommandControlled;
+	else	// index == 0
+		_newinterfacetype = AbstractDiagInterface::interface_serialPassThrough;
+	interfaceName_label->setText(tr("Serial Port:"));
+	std::vector<std::string> portlist = serialCOM::GetAvailablePorts();
+	for (unsigned int k=0; k<portlist.size(); k++)
+		deviceNames.push_back(QString::fromStdString(portlist.at(k)));
 	if (deviceNames.size())
 	{
 		interfaceName_comboBox->addItems(deviceNames);
@@ -189,16 +167,7 @@ void Preferences::selectInterfaceName(int index)
 {
 	if ((index < 0) || (index >= interfaceName_comboBox->count()))
 		_newinterfacefilename = "";
-	else
-	{
-		if (_newinterfacetype == AbstractDiagInterface::interface_J2534)
-		{
-			if (index < _J2534libraryPaths.size())
-				_newinterfacefilename = _J2534libraryPaths.at(index);
-			else	// should never happen
-				_newinterfacefilename = "";
-		}
-		else
+	else{
 			_newinterfacefilename = interfaceName_comboBox->currentText();
 	}
 }
@@ -214,10 +183,6 @@ void Preferences::interfacetest()
 	if (_newinterfacetype == AbstractDiagInterface::interface_serialPassThrough)
 	{
 		diagInterface = new SerialPassThroughDiagInterface;
-	}
-	else if (_newinterfacetype == AbstractDiagInterface::interface_J2534)
-	{
-		diagInterface = new J2534DiagInterface;
 	}
 	else if (_newinterfacetype == AbstractDiagInterface::interface_ATcommandControlled)
 	{

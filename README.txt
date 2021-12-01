@@ -59,13 +59,6 @@ Qt Creator etc. might work as well).
 
 4.2 BUILDING A 32 OR 64 BIT APPLICATION ?
 
-If you are going to use a J2534-interface, you should check if the interface
-library is available as 32 and/or 64 bit version.
-32 bit libraries can only be used by a 32 bit application and 64 bit libraries
-can only be used by a 64 bit application.
-At least on MS Windows, most libraries are still available as 32bit version only.
-So you likely prefer to build a 32 bit application here.
-
 To build a 32 (64) bit application on MS Windows, you have to use
 the 32 (64) bit version of MinGW.
 

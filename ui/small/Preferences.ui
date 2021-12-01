@@ -287,11 +287,6 @@
        </item>
        <item>
         <property name="text">
-         <string>SAE-J2534 Pass-Through</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string>AT-command controlled (ELM / AGV / Diamex)</string>
         </property>
        </item>
