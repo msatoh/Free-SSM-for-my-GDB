@@ -23,7 +23,6 @@ HEADERS += src/FreeSSM.h \
            src/AbstractDiagInterface.h \
            src/ATcommandControlledDiagInterface.h \
            src/SerialPassThroughDiagInterface.h \
-           src/J2534DiagInterface.h \
            src/J2534.h \
            src/J2534misc.h \
            src/SSMP1communication.h \
@@ -72,7 +71,6 @@ SOURCES += src/main.cpp \
            src/AbstractDiagInterface.cpp \
            src/ATcommandControlledDiagInterface.cpp \
            src/SerialPassThroughDiagInterface.cpp \
-           src/J2534DiagInterface.cpp \
            src/J2534misc.cpp \
            src/SSMP1communication.cpp \
            src/SSMP1communication_procedures.cpp \
