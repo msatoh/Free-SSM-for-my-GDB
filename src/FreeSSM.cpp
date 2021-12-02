@@ -193,7 +193,6 @@ FreeSSM::FreeSSM(QApplication *app)
 	/* engine(); */
 	connect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
 	connect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
-	connect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	connect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	connect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
 	connect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
@@ -207,7 +206,6 @@ FreeSSM::~FreeSSM()
 	disconnect( _dump_action, SIGNAL( triggered() ), this, SLOT( dumpCUdata() ) );
 	disconnect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
 	disconnect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
-	disconnect( cruisecontrol_pushButton, SIGNAL( released() ), this, SLOT( cruisecontrol() ) );
 	disconnect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	disconnect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
 	disconnect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
@@ -231,7 +229,7 @@ FreeSSM::~FreeSSM()
 void FreeSSM::engine(QStringList cmdline_args)
 {
 	if (_dumping) return;
-	ControlUnitDialog::ContentSelection csel = ControlUnitDialog::ContentSelection::DCsMode;
+	ControlUnitDialog::ContentSelection csel = ControlUnitDialog::ContentSelection::MBsSWsMode; //initial mode
 	if(!getContentSelectionFromCmdLine(&cmdline_args, &csel))
 		exit(ERROR_BADCMDLINEARGS);
 	AbstractDiagInterface *diagInterface = initInterface();
@@ -269,29 +267,6 @@ void FreeSSM::abs(QStringList cmdline_args)
 		if (absdialog->setup( csel, cmdline_args ))
 			absdialog->exec();
 		delete absdialog;
-		delete diagInterface;
-	}
-}
-
-
-void FreeSSM::cruisecontrol(QStringList cmdline_args)
-{
-	if (_dumping) return;
-	ControlUnitDialog::ContentSelection csel = ControlUnitDialog::ContentSelection::DCsMode;
-	if(!getContentSelectionFromCmdLine(&cmdline_args, &csel))
-		exit(ERROR_BADCMDLINEARGS);
-	AbstractDiagInterface *diagInterface = initInterface();
-	if (diagInterface)
-	{
-		CruiseControlDialog *cruisecontroldialog = new CruiseControlDialog(diagInterface, _language);
-#ifdef SMALL_RESOLUTION
-		cruisecontroldialog->showFullScreen();
-#else
-		cruisecontroldialog->show();
-#endif
-		if (cruisecontroldialog->setup( csel, cmdline_args ))
-			cruisecontroldialog->exec();
-		delete cruisecontroldialog;
 		delete diagInterface;
 	}
 }
@@ -631,14 +606,6 @@ bool FreeSSM::getContentSelectionFromCmdLine(QStringList *cmdline_args, ControlU
 	else if (selstr == "adjustments")
 	{
 		*csel = ControlUnitDialog::ContentSelection::AdjustmentsMode;
-	}
-	else if (selstr == "systests")
-	{
-		*csel = ControlUnitDialog::ContentSelection::SysTestsMode;
-	}
-	else if (selstr == "clearmemory")
-	{
-		*csel = ControlUnitDialog::ContentSelection::ClearMemoryFcn;
 	}
 	else if (selstr == "clearmemory2")
 	{

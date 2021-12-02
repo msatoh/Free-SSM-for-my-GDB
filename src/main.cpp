@@ -18,7 +18,7 @@
  */
 
 
-#define FSSM_VERSION "(devel)"
+#define FSSM_VERSION "(devil)"
 
 
 #include <QtGui>
@@ -52,8 +52,6 @@ static bool applyCmdLineStartupOptions(FreeSSM *freessm_mainwindow, QStringList 
 		freessm_mainwindow->engine(cmdline_args);
 	else if (cu_str == "absvdc")
 		freessm_mainwindow->abs(cmdline_args);
-	else if (cu_str == "cruisectrl")
-		freessm_mainwindow->cruisecontrol(cmdline_args);
 	else if (cu_str == "aircon")
 		freessm_mainwindow->aircon(cmdline_args);
 	else

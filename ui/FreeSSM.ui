@@ -129,32 +129,6 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="cruisecontrol_pushButton">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>200</x>
-       <y>74</y>
-       <width>172</width>
-       <height>40</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>  &amp;Cruise Control </string>
-     </property>
-     <property name="icon">
-      <iconset resource="../resources/FreeSSM.qrc">
-       <normaloff>:/icons/freessm/64x64/CruiseControl.png</normaloff>:/icons/freessm/64x64/CruiseControl.png</iconset>
-     </property>
-     <property name="iconSize">
-      <size>
-       <width>32</width>
-       <height>32</height>
-      </size>
-     </property>
-    </widget>
     <widget class="QPushButton" name="aircon_pushButton">
      <property name="geometry">
       <rect>
@@ -222,7 +196,6 @@
  <tabstops>
   <tabstop>engine_pushButton</tabstop>
   <tabstop>absvdc_pushButton</tabstop>
-  <tabstop>cruisecontrol_pushButton</tabstop>
   <tabstop>aircon_pushButton</tabstop>
   <tabstop>preferences_pushButton</tabstop>
   <tabstop>exit_pushButton</tabstop>
