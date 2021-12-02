@@ -409,27 +409,6 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0" colspan="4">
-    <widget class="QLabel" name="obd2systemTitle_label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <underline>true</underline>
-      </font>
-     </property>
-     <property name="text">
-      <string>OBD2-System:</string>
-     </property>
-    </widget>
-   </item>
    <item row="7" column="4">
     <widget class="QLabel" name="obd2system_label">
      <property name="sizePolicy">
@@ -490,27 +469,6 @@
      </property>
     </widget>
    </item>
-   <item row="8" column="0" colspan="4">
-    <widget class="QLabel" name="integCCtitle_label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <underline>true</underline>
-      </font>
-     </property>
-     <property name="text">
-      <string>Integ. Cruise Control:</string>
-     </property>
-    </widget>
-   </item>
    <item row="8" column="4">
     <widget class="QLabel" name="ccintegrated_label">
      <property name="sizePolicy">
@@ -568,27 +526,6 @@
      </property>
      <property name="scaledContents">
       <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="9" column="0" colspan="4">
-    <widget class="QLabel" name="immosupportedtitle_label">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>9</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
-       <underline>true</underline>
-      </font>
-     </property>
-     <property name="text">
-      <string>Immobilizer:</string>
      </property>
     </widget>
    </item>

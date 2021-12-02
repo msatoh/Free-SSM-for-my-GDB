@@ -117,24 +117,6 @@
     <string>Data:</string>
    </property>
   </widget>
-  <widget class="QLabel" name="integCCtitle_label">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>207</y>
-     <width>125</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <underline>true</underline>
-    </font>
-   </property>
-   <property name="text">
-    <string>Integ. Cruise Control:</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="ccintegrated_label">
    <property name="geometry">
     <rect>
@@ -282,24 +264,6 @@
    </property>
    <property name="text">
     <string>Switches:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="immosupportedtitle_label">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>232</y>
-     <width>125</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <underline>true</underline>
-    </font>
-   </property>
-   <property name="text">
-    <string>Immobilizer:</string>
    </property>
   </widget>
   <widget class="QLabel" name="nrofswitches_label">
@@ -552,24 +516,6 @@
    </property>
    <property name="alignment">
     <set>Qt::AlignCenter</set>
-   </property>
-  </widget>
-  <widget class="QLabel" name="obd2systemTitle_label">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>182</y>
-     <width>125</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <underline>true</underline>
-    </font>
-   </property>
-   <property name="text">
-    <string>OBD2-System:</string>
    </property>
   </widget>
  </widget>
