@@ -47,7 +47,6 @@ public:
 
 	bool hasOBD2system(bool *OBD2);
 	bool hasVINsupport(bool *VINsup);
-	bool hasImmobilizer(bool *ImmoSup);
 	bool hasImmobilizerTest(bool *ImmoTestSup);
 	bool hasIntegratedCC(bool *CCsup);
 	bool hasClearMemory(bool *CMsup);
