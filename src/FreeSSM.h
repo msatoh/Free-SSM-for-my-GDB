@@ -65,7 +65,6 @@ public:
 public slots:
 	void engine(QStringList cmdline_args = QStringList());
 	void abs(QStringList cmdline_args = QStringList());
-	void cruisecontrol(QStringList cmdline_args = QStringList());
 	void aircon(QStringList cmdline_args = QStringList());
 
 private slots:

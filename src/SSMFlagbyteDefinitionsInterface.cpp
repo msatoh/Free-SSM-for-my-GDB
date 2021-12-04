@@ -555,18 +555,6 @@ bool SSMFlagbyteDefinitionsInterface::hasVINsupport(bool *VINsup)
 }
 
 
-bool SSMFlagbyteDefinitionsInterface::hasImmobilizer(bool *ImmoSup)
-{
-	if (!_id_set)
-		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
-		return false;
-	*ImmoSup = _CU == SSMprotocol::CUtype_Engine
-		&& _ssmCUdata.flagbytebit(28, 4);
-	return true;
-}
-
-
 bool SSMFlagbyteDefinitionsInterface::hasImmobilizerTest(bool *ImmoTestSup)
 {
 	bool ImmoSup = false;
