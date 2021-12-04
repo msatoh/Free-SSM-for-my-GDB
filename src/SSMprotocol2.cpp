@@ -179,7 +179,6 @@ SSMprotocol::CUsetupResult_dt SSMprotocol2::setupCUdata(CUtype_dt CU, bool ignor
 	FBdefsIface->selectControlUnitID(_CU, _ssmCUdata);
 	FBdefsIface->systemDescription(&_sysDescription);
 	FBdefsIface->hasOBD2system(&_has_OBD2);
-	FBdefsIface->hasImmobilizer(&_has_Immo);
 	FBdefsIface->hasImmobilizerTest(&_has_ImmoTest);
 	FBdefsIface->hasTestMode(&_has_TestMode);
 	FBdefsIface->hasActuatorTests(&_has_ActTest);

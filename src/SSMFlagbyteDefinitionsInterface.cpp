@@ -559,7 +559,7 @@ bool SSMFlagbyteDefinitionsInterface::hasImmobilizerTest(bool *ImmoTestSup)
 {
 	bool ImmoSup = false;
 	bool TMsup = false;
-	if (!hasImmobilizer(&ImmoSup) || !hasTestMode(&TMsup))
+	if (!hasTestMode(&TMsup))
 		return false;
 	*ImmoTestSup = TMsup && ImmoSup;
 	return true;
