@@ -125,12 +125,6 @@ void ControlUnitDialog::addContent(ContentSelection csel)
 		icon = QIcon(QString::fromUtf8(":/icons/chrystal/22x22/configure.png"));
 		checkable = true;
 	}
-	else if (csel == ContentSelection::SysTestsMode)
-	{
-		title = tr("System &Tests");
-		icon = QIcon(QString::fromUtf8(":/icons/chrystal/22x22/klaptop.png"));
-		checkable = true;
-	}
 	else // BUG
 		return;
 	// Create button:
@@ -174,8 +168,6 @@ void ControlUnitDialog::addContent(ContentSelection csel)
 		connect( button, SIGNAL( clicked() ), this, SLOT( switchToMBsSWsMode() ) );
 	else if (csel == ContentSelection::AdjustmentsMode)
 		connect( button, SIGNAL( clicked() ), this, SLOT( switchToAdjustmentsMode() ) );
-	else if (csel == ContentSelection::SysTestsMode)
-		connect( button, SIGNAL( clicked() ), this, SLOT( switchToSystemOperationTestsMode() ) );
 	//else: BUG
 	// Save, show and return button:
 	button->show();
@@ -326,7 +318,6 @@ bool ControlUnitDialog::setup(ContentSelection csel, QStringList cmdline_args)
 	setContentSelectionButtonEnabled(ContentSelection::DCsMode, true);
 	setContentSelectionButtonEnabled(ContentSelection::MBsSWsMode, true);
 	setContentSelectionButtonEnabled(ContentSelection::AdjustmentsMode, true);
-	setContentSelectionButtonEnabled(ContentSelection::SysTestsMode, true);
 	// ***** Start selected Control Unit content/functionality *****:
 	if (!startMode(mode))
 		goto commError;
@@ -420,13 +411,6 @@ bool ControlUnitDialog::prepareContentWidget(Mode mode)
 		_content_Adjustments = new CUcontent_Adjustments();
 		setContentWidget(tr("Adjustments:"), _content_Adjustments);
 		_content_Adjustments->show();
-	}
-	else if (mode == Mode::SysTests)
-	{
-		setContentSelectionButtonChecked(ContentSelection::SysTestsMode, true);
-		_content_SysTests = new CUcontent_sysTests();
-		setContentWidget(tr("System Operation Tests:"), _content_SysTests);
-		_content_SysTests->show();
 	}
 	else // BUG
 		return false;
@@ -523,8 +507,6 @@ bool ControlUnitDialog::getModeForContentSelection(ContentSelection csel, Mode *
 		*mode = Mode::MBsSWs;
 	else if (csel == ContentSelection::AdjustmentsMode)
 		*mode = Mode::Adjustments;
-	else if (csel == ContentSelection::SysTestsMode)
-		*mode = Mode::SysTests;
 	else // BUG
 		return false;
 	return true;
@@ -717,8 +699,6 @@ bool ControlUnitDialog::startMode(Mode mode)
 		ok = startMBsSWsMode();
 	else if (mode == Mode::Adjustments)
 		ok = startAdjustmentsMode();
-	else if (mode == Mode::SysTests)
-		ok = startSystemOperationTestsMode();
 	else // BUG
 		ok = false;
 	return ok;

@@ -29,9 +29,7 @@ EngineDialog::EngineDialog(AbstractDiagInterface *diagInterface, QString languag
 	addContent(ContentSelection::DCsMode);
 	addContent(ContentSelection::MBsSWsMode);
 	addContent(ContentSelection::AdjustmentsMode);
-	addContent(ContentSelection::SysTestsMode);
 }
-
 
 QString EngineDialog::systemName()
 {
