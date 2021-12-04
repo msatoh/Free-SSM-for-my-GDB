@@ -98,13 +98,3 @@ void CUinfo_Engine::setIntegratedCCSupported(bool sup)
 	else
 		ccintegrated_label->setPixmap(QPixmap(QString::fromUtf8(":/icons/chrystal/22x22/editdelete.png")));
 }
-
-
-void CUinfo_Engine::setImmobilizerSupported(bool sup)
-{
-	if (sup)
-		immobilizer_label->setPixmap(QPixmap(QString::fromUtf8(":/icons/chrystal/22x22/ok.png")));
-	else
-		immobilizer_label->setPixmap(QPixmap(QString::fromUtf8(":/icons/chrystal/22x22/editdelete.png")));
-}
-

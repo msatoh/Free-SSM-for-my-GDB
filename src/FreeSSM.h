@@ -31,7 +31,6 @@
 #include "libFSSM.h"
 #include "EngineDialog.h"
 #include "ABSdialog.h"
-#include "CruiseControlDialog.h"
 #include "AirConDialog.h"
 #include "Preferences.h"
 #include "ui_FreeSSM.h"

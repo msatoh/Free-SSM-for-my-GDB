@@ -88,10 +88,6 @@ bool EngineDialog::displayExtendedCUinfo(SSMprotocol *SSMPdev, CUinfo_abstract *
 		return false;	// commError
 	infoWidget->setIntegratedCCSupported(supported);
 	// Immobilizer:
-	if (!SSMPdev->hasImmobilizer(&supported))
-		return false;	// commError
-	infoWidget->setImmobilizerSupported(supported);
-	// Update status info message box:
 	if (initstatusmsgbox != NULL)
 	{
 		initstatusmsgbox->setLabelText(tr("Reading Vehicle Ident. Number... Please wait !"));

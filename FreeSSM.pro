@@ -15,7 +15,6 @@ HEADERS += src/FreeSSM.h \
            src/CmdLine.h \
            src/EngineDialog.h \
            src/ABSdialog.h \
-           src/CruiseControlDialog.h \
            src/AirConDialog.h \
            src/Preferences.h \
            src/FSSMdialogs.h \
@@ -61,7 +60,6 @@ SOURCES += src/main.cpp \
            src/CmdLine.cpp \
            src/EngineDialog.cpp \
            src/ABSdialog.cpp \
-           src/CruiseControlDialog.cpp \
            src/AirConDialog.cpp \
            src/Preferences.cpp \
            src/FSSMdialogs.cpp \

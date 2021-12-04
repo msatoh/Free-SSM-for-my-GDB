@@ -40,7 +40,7 @@ public:
 	void setNrOfSupportedMBsSWs(unsigned int MBs, unsigned int SWs);
 	void setOBD2Supported(bool sup);
 	void setIntegratedCCSupported(bool sup);
-	void setImmobilizerSupported(bool sup);
+	void lizerSupported(bool sup);
 
 };
 
