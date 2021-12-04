@@ -28,7 +28,6 @@ AirConDialog::AirConDialog(AbstractDiagInterface *diagInterface, QString languag
 	// Add content:
 	addContent(ContentSelection::DCsMode);
 	addContent(ContentSelection::MBsSWsMode);
-	addContent(ContentSelection::ClearMemoryFcn);
 }
 
 

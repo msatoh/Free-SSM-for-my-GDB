@@ -33,7 +33,6 @@ ABSdialog::ABSdialog(AbstractDiagInterface *diagInterface, QString language) : C
 	// Add content:
 	addContent(ContentSelection::DCsMode);
 	addContent(ContentSelection::MBsSWsMode);
-	addContent(ContentSelection::ClearMemoryFcn);
 }
 
 

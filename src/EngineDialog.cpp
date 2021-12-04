@@ -30,7 +30,6 @@ EngineDialog::EngineDialog(AbstractDiagInterface *diagInterface, QString languag
 	addContent(ContentSelection::MBsSWsMode);
 	addContent(ContentSelection::AdjustmentsMode);
 	addContent(ContentSelection::SysTestsMode);
-	addContent(ContentSelection::ClearMemoryFcn);
 }
 
 

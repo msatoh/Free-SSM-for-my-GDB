@@ -131,18 +131,6 @@ void ControlUnitDialog::addContent(ContentSelection csel)
 		icon = QIcon(QString::fromUtf8(":/icons/chrystal/22x22/klaptop.png"));
 		checkable = true;
 	}
-	else if (csel == ContentSelection::ClearMemoryFcn)
-	{
-		title = tr("Clear Memory");
-		icon = QIcon(QString::fromUtf8(":/icons/chrystal/22x22/eraser.png"));
-		checkable = false;
-	}
-	else if (csel == ContentSelection::ClearMemory2Fcn)
-	{
-		title = tr("Clear Memory 2");
-		icon = QIcon(QString::fromUtf8(":/icons/chrystal/22x22/eraser.png"));
-		checkable = false;
-	}
 	else // BUG
 		return;
 	// Create button:
@@ -188,10 +176,6 @@ void ControlUnitDialog::addContent(ContentSelection csel)
 		connect( button, SIGNAL( clicked() ), this, SLOT( switchToAdjustmentsMode() ) );
 	else if (csel == ContentSelection::SysTestsMode)
 		connect( button, SIGNAL( clicked() ), this, SLOT( switchToSystemOperationTestsMode() ) );
-	else if (csel == ContentSelection::ClearMemoryFcn)
-		connect( button, SIGNAL( clicked() ), this, SLOT( clearMemory() ) );
-	else if (csel == ContentSelection::ClearMemory2Fcn)
-		connect( button, SIGNAL( clicked() ), this, SLOT( clearMemory2() ) );
 	//else: BUG
 	// Save, show and return button:
 	button->show();
@@ -352,17 +336,8 @@ bool ControlUnitDialog::setup(ContentSelection csel, QStringList cmdline_args)
 	QTimer::singleShot(800, &initstatusmsgbox, SLOT(accept()));
 	initstatusmsgbox.exec();
 	initstatusmsgbox.close();
-	// Run Clear Memory procedure if requested:
-	if (csel == ContentSelection::ClearMemoryFcn)
-	{
-		clearMemory();
-	}
-	else if (csel == ContentSelection::ClearMemory2Fcn)
-	{
-		clearMemory2();
-	}
 	// Apply command line startup parameters for MB/SW mode:
-	else if ((csel == ContentSelection::MBsSWsMode) && (_content_MBsSWs != NULL))
+	if ((csel == ContentSelection::MBsSWsMode) && (_content_MBsSWs != NULL))
 	{
 		if (mbssws_selfile.size())
 			_content_MBsSWs->loadMBsSWs(mbssws_selfile);
@@ -542,7 +517,7 @@ bool ControlUnitDialog::getParametersFromCmdLine(QStringList *cmdline_args, QStr
 
 bool ControlUnitDialog::getModeForContentSelection(ContentSelection csel, Mode *mode)
 {
-	if ((csel == ContentSelection::DCsMode) || (csel == ContentSelection::ClearMemoryFcn) || (csel == ContentSelection::ClearMemory2Fcn))
+	if (csel == ContentSelection::DCsMode)
 		*mode = Mode::DCs;
 	else if (csel == ContentSelection::MBsSWsMode)
 		*mode = Mode::MBsSWs;
