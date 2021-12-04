@@ -185,7 +185,6 @@ SSMprotocol::CUsetupResult_dt SSMprotocol1::setupCUdata(CUtype_dt CU)
 		FBdefsIface->selectControlUnitID(_CU, _ssmCUdata);
 		FBdefsIface->systemDescription(&_sysDescription);
 		FBdefsIface->hasOBD2system(&_has_OBD2);
-		FBdefsIface->hasImmobilizer(&_has_Immo);
 		bool CMsup = false;
 		FBdefsIface->hasClearMemory(&CMsup);
 		if (CMsup)
