@@ -40,7 +40,7 @@ class ControlUnitDialog : public QDialog, private Ui::ControlUnit_Dialog
 	Q_OBJECT
 
 public:
-	enum class ContentSelection {DCsMode, MBsSWsMode, AdjustmentsMode, SysTestsMode, ClearMemoryFcn, ClearMemory2Fcn};
+	enum class ContentSelection {DCsMode, MBsSWsMode, AdjustmentsMode, ClearMemoryFcn, ClearMemory2Fcn};
 
 	ControlUnitDialog(QString title, AbstractDiagInterface *diagInterface, QString language);
 	~ControlUnitDialog();
