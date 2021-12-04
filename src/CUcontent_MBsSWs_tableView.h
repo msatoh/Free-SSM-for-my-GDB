@@ -61,13 +61,10 @@ private:
 	void updateTypesColumn(const std::vector<BlockType>& types);
 
 private slots:
-	void setMoveButtonsEnabledState();
 	void toggleMinColumnVisible(bool show);
 	void toggleMaxColumnVisible(bool show);
 
 signals:
-	void moveUpButton_pressed();
-	void moveDownButton_pressed();
 	void resetMinMaxButton_pressed();
 	void itemSelectionChanged();
 

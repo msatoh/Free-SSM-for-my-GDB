@@ -30,9 +30,6 @@ CUcontent_MBsSWs_tableView::CUcontent_MBsSWs_tableView(QWidget *parent, bool sho
 
 	// Setup GUI:
 	setupUi(this);
-	// Disable all GUI-elements:
-	mbswmoveup_pushButton->setEnabled( false );
-	mbswmovedown_pushButton->setEnabled( false );
 	// Set table column resize behavior:
 	headerview = selectedMBsSWs_tableWidget->horizontalHeader();
 #if QT_VERSION < 0x050000
@@ -70,25 +67,19 @@ CUcontent_MBsSWs_tableView::CUcontent_MBsSWs_tableView(QWidget *parent, bool sho
 	iconMB = QIcon(":/icons/freessm/32x32/MB.png");
 	iconSW = QIcon(":/icons/freessm/32x32/SW.png");
 	// Connect signals and slots:
-	connect( mbswmoveup_pushButton , SIGNAL( released() ), this, SIGNAL( moveUpButton_pressed() ) );
-	connect( mbswmovedown_pushButton , SIGNAL( released() ), this, SIGNAL( moveDownButton_pressed() ) );
 	connect( resetMinMax_pushButton , SIGNAL( released() ), this, SIGNAL( resetMinMaxButton_pressed() ) );
 	connect( showMin_pushButton , SIGNAL( clicked(bool) ), this, SLOT( toggleMinColumnVisible(bool) ) );
 	connect( showMax_pushButton , SIGNAL( clicked(bool) ), this, SLOT( toggleMaxColumnVisible(bool) ) );
 	// NOTE: using released() instead of pressed() as workaround for a Qt-Bug occuring under MS Windows
-	connect( selectedMBsSWs_tableWidget , SIGNAL( itemSelectionChanged() ), this, SLOT( setMoveButtonsEnabledState() ) );
 	connect( selectedMBsSWs_tableWidget , SIGNAL( itemSelectionChanged() ), this, SIGNAL( itemSelectionChanged() ) );
 }
 
 
 CUcontent_MBsSWs_tableView::~CUcontent_MBsSWs_tableView()
 {
-	disconnect( mbswmoveup_pushButton , SIGNAL( released() ), this, SIGNAL( moveUpButton_pressed() ) );
-	disconnect( mbswmovedown_pushButton , SIGNAL( released() ), this, SIGNAL( moveDownButton_pressed() ) );
 	disconnect( resetMinMax_pushButton , SIGNAL( released() ), this, SIGNAL( resetMinMaxButton_pressed() ) );
 	disconnect( showMin_pushButton , SIGNAL( clicked(bool) ), this, SLOT( toggleMinColumnVisible(bool) ) );
 	disconnect( showMax_pushButton , SIGNAL( clicked(bool) ), this, SLOT( toggleMaxColumnVisible(bool) ) );
-	disconnect( selectedMBsSWs_tableWidget , SIGNAL( itemSelectionChanged() ), this, SLOT( setMoveButtonsEnabledState() ) );
 	disconnect( selectedMBsSWs_tableWidget , SIGNAL( itemSelectionChanged() ), this, SIGNAL( itemSelectionChanged() ) );
 }
 
@@ -188,22 +179,6 @@ void CUcontent_MBsSWs_tableView::clearMBSWlistContent()
 {
 	selectedMBsSWs_tableWidget->clear();
 	_nrofMBsSWs = 0;
-}
-
-
-void CUcontent_MBsSWs_tableView::setMoveButtonsEnabledState()
-{
-	const std::vector<unsigned int> selectedMBSWIndexes = getSelectedTableWidgetRows();
-	if (selectedMBSWIndexes.size() > 0)
-	{
-		mbswmoveup_pushButton->setEnabled(selectedMBSWIndexes.front() > 0);
-		mbswmovedown_pushButton->setEnabled(selectedMBSWIndexes.back() < (_nrofMBsSWs - 1));
-	}
-	else
-	{
-		mbswmovedown_pushButton->setEnabled(false);
-		mbswmoveup_pushButton->setEnabled(false);
-	}
 }
 
 
