@@ -57,8 +57,6 @@ CUcontent_MBsSWs::CUcontent_MBsSWs(MBSWsettings_dt settings, QWidget *parent) : 
 	connect( mbswdelete_pushButton , SIGNAL( released() ), this, SLOT( deleteMBsSWs() ) );
 	connect( mbswsave_pushButton , SIGNAL( released() ), this, SLOT( saveMBsSWs() ) );
 	connect( mbswload_pushButton , SIGNAL( released() ), this, SLOT( loadMBsSWs() ) );
-	connect( _valuesTableView , SIGNAL( moveUpButton_pressed() ), this, SLOT( moveUpMBsSWsOnTheTable() ) );
-	connect( _valuesTableView , SIGNAL( moveDownButton_pressed() ), this, SLOT( moveDownMBsSWsOnTheTable() ) );
 	connect( _valuesTableView , SIGNAL( resetMinMaxButton_pressed() ), this, SLOT( resetMinMaxTableValues() ) );
 	connect( _valuesTableView , SIGNAL( itemSelectionChanged() ), this, SLOT( setDeleteButtonEnabledState() ) );
 	connect( _timemode_pushButton , SIGNAL( released() ), this, SLOT( switchTimeMode() ) );
@@ -83,8 +81,6 @@ CUcontent_MBsSWs::~CUcontent_MBsSWs()
 	disconnect( startstopmbreading_pushButton , SIGNAL( released() ), this, SLOT( startstopMBsSWsButtonPressed() ) );
 	disconnect( mbswadd_pushButton , SIGNAL( released() ), this, SLOT( addMBsSWs() ) );
 	disconnect( mbswdelete_pushButton , SIGNAL( released() ), this, SLOT( deleteMBsSWs() ) );
-	disconnect( _valuesTableView , SIGNAL( moveUpButton_pressed() ), this, SLOT( moveUpMBsSWsOnTheTable() ) );
-	disconnect( _valuesTableView , SIGNAL( moveDownButton_pressed() ), this, SLOT( moveDownMBsSWsOnTheTable() ) );
 	disconnect( _valuesTableView , SIGNAL( resetMinMaxButton_pressed() ), this, SLOT( resetMinMaxTableValues() ) );
 	disconnect( _valuesTableView , SIGNAL( itemSelectionChanged() ), this, SLOT( setDeleteButtonEnabledState() ) );
 	disconnect( _timemode_pushButton , SIGNAL(released() ), this, SLOT( switchTimeMode() ) );
@@ -1022,78 +1018,6 @@ void CUcontent_MBsSWs::labelStartStopButtonReadyForStart()
 	QSize startstopmbreadingiconsize(24,24);
 	startstopmbreading_pushButton->setIcon(startstopmbreadingicon);
 	startstopmbreading_pushButton->setIconSize(startstopmbreadingiconsize);
-}
-
-
-void CUcontent_MBsSWs::moveUpMBsSWsOnTheTable()
-{
-	int nrofSelRows = 0;
-	unsigned int rowToMoveDownIndex = 0;
-	unsigned int rowToMoveDownTargetIndex = 0;
-	// GET SELECTED ROWS:
-	const std::vector<unsigned int> selectedMBSWIndexes = _valuesTableView->getSelectedTableWidgetRows();
-	nrofSelRows = selectedMBSWIndexes.size();
-	// CHECK AND CORRECT SELECTED ROWS:
-	if ((nrofSelRows < 1) || (selectedMBSWIndexes.at(0) < 1) || (1 + selectedMBSWIndexes.at(0) > _MBSWmetaList.size()))
-		return;	// Cancel, if moving up is not possible
-	if ((selectedMBSWIndexes.at(0) + nrofSelRows) > _MBSWmetaList.size()) // if selection exceed the end of the list
-		nrofSelRows = _MBSWmetaList.size() - selectedMBSWIndexes.at(0);
-	// NOTE: IN FACT WE ARE MOVING 1 ROW DOWN...
-	// GET START AND TERGET INDEX OF THE ROW THAT WILL BE MOVED:
-	rowToMoveDownIndex = selectedMBSWIndexes.at(0) - 1;
-	rowToMoveDownTargetIndex = selectedMBSWIndexes.at(nrofSelRows-1);
-	// MODIFY TABLE-POSITION-INDEXES FOR OUTPUT:
-	for (size_t k=0; k<_tableRowPosIndexes.size(); k++)
-	{
-		if ((_tableRowPosIndexes.at(k) > rowToMoveDownIndex) && (_tableRowPosIndexes.at(k) <= rowToMoveDownTargetIndex))
-		{
-			_tableRowPosIndexes[k] -= 1;
-		}
-		else if (_tableRowPosIndexes.at(k) == rowToMoveDownIndex)
-		{
-			_tableRowPosIndexes[k] = rowToMoveDownTargetIndex;
-		}
-	}
-	// UPDATE MB/SW TABLE CONTENT:
-	displayMBsSWs();
-	// RESELECT MOVED ROWS:
-	_valuesTableView->selectMBSWtableRows(rowToMoveDownIndex, rowToMoveDownTargetIndex-1);
-	// SCROLL TO POSTION OF FIRST SELECTED ROW:
-	_valuesTableView->scrollMBSWtable(rowToMoveDownIndex);
-}
-
-
-void CUcontent_MBsSWs::moveDownMBsSWsOnTheTable()
-{
-	unsigned int rowToMoveUpIndex = 0;
-	unsigned int rowToMoveUpTargetIndex = 0;
-	// GET SELECTED ROWS:
-	const std::vector<unsigned int> selectedMBSWIndexes = _valuesTableView->getSelectedTableWidgetRows();
-	// CHECK AND CORRECT SELECTED ROWS:
-	if ((selectedMBSWIndexes.size() < 1) | (selectedMBSWIndexes.at(selectedMBSWIndexes.size()-1)+1 >= _MBSWmetaList.size()))
-		return;	// Cancle if moving is not possible
-	// NOTE: IN FACT WE ARE MOVING 1 ROW UP...
-	// GET START AND TERGET INDEX OF THE ROW THAT WILL BE MOVED:
-	rowToMoveUpIndex = selectedMBSWIndexes.at(selectedMBSWIndexes.size()-1)+1;
-	rowToMoveUpTargetIndex = selectedMBSWIndexes.at(0);
-	// MODIFY TABLE-POSITION-INDEXES FOR OUTPUT:
-	for (size_t k=0; k<_tableRowPosIndexes.size(); k++)
-	{
-		if ((_tableRowPosIndexes.at(k) >= rowToMoveUpTargetIndex) && (_tableRowPosIndexes.at(k) < rowToMoveUpIndex))
-		{
-			_tableRowPosIndexes[k] += 1;
-		}
-		else if (_tableRowPosIndexes.at(k) == rowToMoveUpIndex)
-		{
-			_tableRowPosIndexes[k] = rowToMoveUpTargetIndex;
-		}
-	}
-	// UPDATE MB/SW TABLE CONTENT:
-	displayMBsSWs();
-	// RESELECT MOVED ROWS:
-	_valuesTableView->selectMBSWtableRows(rowToMoveUpTargetIndex+1, rowToMoveUpIndex);
-	// SCROLL TO POSITION OF LAST SELECTED ROW:
-	_valuesTableView->scrollMBSWtable(rowToMoveUpIndex);
 }
 
 
