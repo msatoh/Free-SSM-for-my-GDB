@@ -102,52 +102,12 @@ SSMprotocol::CUsetupResult_dt SSMprotocol1::setupCUdata(CUtype_dt CU)
 		SSM1_CU = SSM1_CU_Engine;
 		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_Engine.xml";
 	}
-	else if (CU == CUtype_Transmission)
-	{
-		SSM1_CU = SSM1_CU_Transmission;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_Transmission.xml";
-	}
-	else if (CU == CUtype_CruiseControl)
-	{
-		SSM1_CU = SSM1_CU_CruiseCtrl;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_CruiseControl.xml";
-	}
-	else if (CU == CUtype_AirCon)
-	{
-		SSM1_CU = SSM1_CU_AirCon;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_AirConditioning.xml";
-	}
-	else if (CU == CUtype_FourWheelSteering)
-	{
-		SSM1_CU = SSM1_CU_FourWS;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_FourWheelSteering.xml";
-	}
-	else if (CU == CUtype_ABS)
-	{
-		SSM1_CU = SSM1_CU_ABS;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_ABS.xml";
-	}
-	else if (CU == CUtype_AirSuspension)
-	{
-		SSM1_CU = SSM1_CU_AirSusp;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_AirSuspension.xml";
-	}
-	else if (CU == CUtype_PowerSteering)
-	{
-		SSM1_CU = SSM1_CU_PwrSteer;
-		LegacyDefsFile = QCoreApplication::applicationDirPath().toStdString() + "/definitions/SSM1defs_PowerSteering.xml";
-	}
 	else
 		return result_invalidCUtype;
 	// Create SSMP1communication-object:
 	_SSMP1com = new SSMP1communication(_diagInterface, SSM1_CU);
 	// Get control unit ID:
 	bool ok = _SSMP1com->getCUdata(0, _ssmCUdata);
-	if (!ok && (CU == CUtype_AirCon))
-	{
-		_SSMP1com->selectCU(SSM1_CU_AirCon2);
-		ok = _SSMP1com->getCUdata(0, _ssmCUdata);
-	}
 	if (!ok)
 	{
 		delete _SSMP1com;
@@ -650,7 +610,7 @@ bool SSMprotocol1::isEngineRunning(bool *isrunning)
 {
 	char currentdatabyte = 0;
 	if (_state != state_normal) return false;
-	if ((_CU != CUtype_Engine) && (_CU != CUtype_Transmission))
+	if (_CU != CUtype_Engine)
 		return false;
 	if (!_ssmCUdata.uses_Ax10xx_defs())	// FIXME: other defintion types
 		return false;

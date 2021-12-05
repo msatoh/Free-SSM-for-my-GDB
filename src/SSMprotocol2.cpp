@@ -122,19 +122,6 @@ SSMprotocol::CUsetupResult_dt SSMprotocol2::setupCUdata(CUtype_dt CU, bool ignor
 		else
 			return result_invalidInterfaceConfig;
 	}
-	else if (CU == CUtype_Transmission)
-	{
-		if (_diagInterface->protocolType() == AbstractDiagInterface::protocol_SSM2_ISO14230)
-		{
-			CUaddress = 0x18;
-		}
-		else if (_diagInterface->protocolType() == AbstractDiagInterface::protocol_SSM2_ISO15765)
-		{
-			CUaddress = 0x7E1;
-		}
-		else
-			return result_invalidInterfaceConfig;
-	}
 	else
 		return result_invalidCUtype;
 	_SSMP2com = new SSMP2communication(_diagInterface, CUaddress, 1);

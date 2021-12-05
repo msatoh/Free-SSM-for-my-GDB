@@ -57,10 +57,6 @@ bool SSMFlagbyteDefinitionsInterface::systemDescription(QString *description)
 	{
 		return getSysDescriptionBySysID( SystemType::ECU, _ssmCUdata.SYS_ID, description );
 	}
-	else if (_CU == SSMprotocol::CUtype_Transmission)
-	{
-		return getSysDescriptionBySysID( SystemType::TCU, _ssmCUdata.SYS_ID, description );
-	}
 	else
 		return false;
 }
@@ -73,7 +69,7 @@ bool SSMFlagbyteDefinitionsInterface::diagnosticCodes(std::vector<dc_defs_dt> *d
 
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*fmt_OBD2 = !_ssmCUdata.flagbytebit(29, 7);
 	SSMFlagbyteDefinitions_en rawdefs_en;
@@ -174,7 +170,7 @@ bool SSMFlagbyteDefinitionsInterface::measuringBlocks(std::vector<mb_intl_dt> *m
 
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	measuringblocks->clear();
 	// Select definitions depending on language:
@@ -201,8 +197,7 @@ bool SSMFlagbyteDefinitionsInterface::measuringBlocks(std::vector<mb_intl_dt> *m
 			continue;
 		// Check if MB is intended for this CU type:
 		tmpstr = mbdefline.section(';', 2, 2);
-		if (!((_CU == SSMprotocol::CUtype_Engine) && (tmpstr.toUInt() & 0x01)) &&
-		    !((_CU == SSMprotocol::CUtype_Transmission) && (tmpstr.toUInt() & 0x02)))
+		if (!((_CU == SSMprotocol::CUtype_Engine) && (tmpstr.toUInt() & 0x01)))
 			continue;
 		// Get memory address (low) definition:
 		tmpstr = mbdefline.section(';', 3, 3);
@@ -255,7 +250,7 @@ bool SSMFlagbyteDefinitionsInterface::switches(std::vector<sw_intl_dt> *switches
 
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	switches->clear();
 	// Select definitions depending on language:
@@ -282,8 +277,7 @@ bool SSMFlagbyteDefinitionsInterface::switches(std::vector<sw_intl_dt> *switches
 			continue;
 		// Check if switch is intended for this CU type:
 		tmpstr = swdefline.section(';', 2, 2);
-		if (!((_CU == SSMprotocol::CUtype_Engine) && (tmpstr.toUInt() & 0x01)) &&
-		    !((_CU == SSMprotocol::CUtype_Transmission) && (tmpstr.toUInt() & 0x02)))
+		if (!((_CU == SSMprotocol::CUtype_Engine) && (tmpstr.toUInt() & 0x01)))
 			continue;
 		// Get memory address definition:
 		tmpstr = swdefline.section(';', 3, 3);
@@ -323,7 +317,7 @@ bool SSMFlagbyteDefinitionsInterface::adjustments(std::vector<adjustment_intl_dt
 
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	adjustments->clear();
 	SSMFlagbyteDefinitions_en rawdefs_en;
@@ -360,7 +354,7 @@ bool SSMFlagbyteDefinitionsInterface::adjustments(std::vector<adjustment_intl_dt
 		tmpCU = defline.section(';', 1, 1).toUInt(&ok, 10);
 		if (!ok)
 			continue;
-		if ( !((_CU == SSMprotocol::CUtype_Engine) && (tmpCU == 0)) && !((_CU == SSMprotocol::CUtype_Transmission) && (tmpCU == 1)) )
+		if ( !((_CU == SSMprotocol::CUtype_Engine) && (tmpCU == 0)))
 			continue;
 		tmpadjustment.AddrLow = defline.section(';', 2, 2).toUInt(&ok, 16);
 		if (!ok || (tmpadjustment.AddrLow == 0))
@@ -453,7 +447,7 @@ bool SSMFlagbyteDefinitionsInterface::hasOBD2system(bool *OBD2)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*OBD2 = !_ssmCUdata.flagbytebit(29, 7) && !_ssmCUdata.flagbytebit(28, 1);
 	return true;
@@ -464,7 +458,7 @@ bool SSMFlagbyteDefinitionsInterface::hasVINsupport(bool *VINsup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*VINsup = (_CU == SSMprotocol::CUtype_Engine) && _ssmCUdata.flagbytebit(36, 0);
 	return true;
@@ -486,7 +480,7 @@ bool SSMFlagbyteDefinitionsInterface::hasIntegratedCC(bool *CCsup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*CCsup = (_CU == SSMprotocol::CUtype_Engine) && _ssmCUdata.flagbytebit(39, 0);
 	return true;
@@ -497,7 +491,7 @@ bool SSMFlagbyteDefinitionsInterface::hasClearMemory(bool *CMsup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*CMsup = true;
 	return true;
@@ -508,9 +502,9 @@ bool SSMFlagbyteDefinitionsInterface::hasClearMemory2(bool *CM2sup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
-	*CM2sup = (_CU == SSMprotocol::CUtype_Transmission) && _ssmCUdata.flagbytebit(39, 1);
+	*CM2sup = false && _ssmCUdata.flagbytebit(39, 1);
 	return true;
 }
 
@@ -519,9 +513,9 @@ bool SSMFlagbyteDefinitionsInterface::hasTestMode(bool *TMsup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
-	*TMsup = (_CU == SSMprotocol::CUtype_Engine) && _ssmCUdata.flagbytebit(11, 5);
+	*TMsup = false && _ssmCUdata.flagbytebit(11, 5);
 	return true;
 }
 
@@ -544,7 +538,7 @@ bool SSMFlagbyteDefinitionsInterface::hasMBengineSpeed(bool *EngSpeedMBsup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*EngSpeedMBsup = _ssmCUdata.flagbytebit(0, 0);
 	return true;
@@ -555,7 +549,7 @@ bool SSMFlagbyteDefinitionsInterface::hasSWignition(bool *IgnSWsup)
 {
 	if (!_id_set)
 		return false;
-	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
+	if (_CU != SSMprotocol::CUtype_Engine)
 		return false;
 	*IgnSWsup = _ssmCUdata.flagbytebit(12, 3);
 	return true;

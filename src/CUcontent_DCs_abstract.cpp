@@ -253,18 +253,6 @@ void CUcontent_DCs_abstract::printDCprotocol()
 						else
 							errstr = tr("Couldn't determine if VIN-registration is supported.");
 						break;
-					case SSMprotocol::CUtype_Transmission:
-						CU = tr("Transmission");
-						break;
-					case SSMprotocol::CUtype_CruiseControl:
-						CU = tr("Cruise Control");
-						break;
-					case SSMprotocol::CUtype_AirCon:
-						CU = tr("Air Conditioning");
-						break;
-					case SSMprotocol::CUtype_FourWheelSteering:
-						CU = tr("4 Wheel Steering");
-						break;
 					default:
 						CU = tr("UNKNOWN");
 				}

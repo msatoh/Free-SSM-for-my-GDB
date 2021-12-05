@@ -510,7 +510,7 @@ SSMprotocol::CUsetupResult_dt ControlUnitDialog::probeProtocol(SSMprotocol::CUty
 	   if receive buffer flushing doesn't work reliable with the used serial port driver !
 	*/
 	SSMprotocol::CUsetupResult_dt result = SSMprotocol::result_commError;
-	if ((CUtype == SSMprotocol::CUtype_Engine) || (CUtype == SSMprotocol::CUtype_Transmission))
+	if (CUtype == SSMprotocol::CUtype_Engine)
 	{
 		// Probe SSM2-protocol:
 		_SSMPdev = new SSMprotocol2(_diagInterface, _language);
