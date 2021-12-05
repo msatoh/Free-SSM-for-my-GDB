@@ -130,13 +130,9 @@ small-resolution {
 
 RESOURCES += resources/FreeSSM.qrc
 
-TRANSLATIONS = FreeSSM_en.ts \
-               FreeSSM_de.ts \
-               FreeSSM_tr.ts
+TRANSLATIONS = FreeSSM_en.ts 
 
-TRANSLATIONS_BIN = FreeSSM_en.qm \
-                   FreeSSM_de.qm \
-                   FreeSSM_tr.qm
+TRANSLATIONS_BIN = FreeSSM_en.qm 
                    # NOTE: we can't use wildcards (see below)
 
 QMAKE_EXTRA_TARGETS += translation

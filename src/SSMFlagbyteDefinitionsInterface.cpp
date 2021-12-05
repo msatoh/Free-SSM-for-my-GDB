@@ -76,30 +76,11 @@ bool SSMFlagbyteDefinitionsInterface::diagnosticCodes(std::vector<dc_defs_dt> *d
 	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
 		return false;
 	*fmt_OBD2 = !_ssmCUdata.flagbytebit(29, 7);
-	if (_language == "de")
-	{
-		SSMFlagbyteDefinitions_de rawdefs_de;
-		if (*fmt_OBD2)
-			rawDefs = rawdefs_de.OBDDTCrawDefs();
-		else
-			rawDefs = rawdefs_de.SUBDTCrawDefs();
-	}
-	else if (_language == "tr")	// Turkish
-	{
-		SSMFlagbyteDefinitions_tr rawdefs_tr;
-		if (*fmt_OBD2)
-			rawDefs = rawdefs_tr.OBDDTCrawDefs();
-		else
-			rawDefs = rawdefs_tr.SUBDTCrawDefs();
-	}
+	SSMFlagbyteDefinitions_en rawdefs_en;
+	if (*fmt_OBD2)
+		rawDefs = rawdefs_en.OBDDTCrawDefs();
 	else
-	{
-		SSMFlagbyteDefinitions_en rawdefs_en;
-		if (*fmt_OBD2)
-			rawDefs = rawdefs_en.OBDDTCrawDefs();
-		else
-			rawDefs = rawdefs_en.SUBDTCrawDefs();
-	}
+		rawDefs = rawdefs_en.SUBDTCrawDefs();
 	// Setup data of the supported DTCs:
 	diagnosticCodes->clear();
 	if (!*fmt_OBD2)
@@ -172,21 +153,8 @@ bool SSMFlagbyteDefinitionsInterface::cruiseControlCancelCodes(std::vector<dc_de
 		return true;
 	// Get raw CCCC-definitions:
 	QStringList CCrawDefs;
-	if (_language == "de")
-	{
-		SSMFlagbyteDefinitions_de rawdefs_de;
-		CCrawDefs = rawdefs_de.CCCCrawDefs();
-	}
-	else if (_language == "tr")	// Turkish
-	{
-		SSMFlagbyteDefinitions_tr rawdefs_tr;
-		CCrawDefs = rawdefs_tr.CCCCrawDefs();
-	}
-	else
-	{
-		SSMFlagbyteDefinitions_en rawdefs_en;
-		CCrawDefs = rawdefs_en.CCCCrawDefs();
-	}
+	SSMFlagbyteDefinitions_en rawdefs_en;
+	CCrawDefs = rawdefs_en.CCCCrawDefs();
 	// Setup data of the supported CCCCs:
 	for (addr=0x133; addr<=0x136; addr++)
 		addDCdefs(addr, addr+4, CCrawDefs, cancelCodes);
@@ -211,21 +179,8 @@ bool SSMFlagbyteDefinitionsInterface::measuringBlocks(std::vector<mb_intl_dt> *m
 	measuringblocks->clear();
 	// Select definitions depending on language:
 	QStringList mbrawdata;
-	if (_language == "de")
-	{
-		SSMFlagbyteDefinitions_de rawdefs_de;
-		mbrawdata = rawdefs_de.MBrawDefs();
-	}
-	else if (_language == "tr")	// Turkish
-	{
-		SSMFlagbyteDefinitions_tr rawdefs_tr;
-		mbrawdata = rawdefs_tr.MBrawDefs();
-	}
-	else
-	{
-		SSMFlagbyteDefinitions_en rawdefs_en;
-		mbrawdata = rawdefs_en.MBrawDefs();
-	}
+	SSMFlagbyteDefinitions_en rawdefs_en;
+	mbrawdata = rawdefs_en.MBrawDefs();
 	// Assort list of supported MBs:
 	for (k=0; k<mbrawdata.size(); k++)
 	{
@@ -305,21 +260,8 @@ bool SSMFlagbyteDefinitionsInterface::switches(std::vector<sw_intl_dt> *switches
 	switches->clear();
 	// Select definitions depending on language:
 	QStringList swrawdata;
-	if (_language == "de")
-	{
-		SSMFlagbyteDefinitions_de rawdefs_de;
-		swrawdata = rawdefs_de.SWrawDefs();
-	}
-	else if (_language == "tr")	// Turkish
-	{
-		SSMFlagbyteDefinitions_tr rawdefs_tr;
-		swrawdata = rawdefs_tr.SWrawDefs();
-	}
-	else
-	{
-		SSMFlagbyteDefinitions_en rawdefs_en;
-		swrawdata = rawdefs_en.SWrawDefs();
-	}
+	SSMFlagbyteDefinitions_en rawdefs_en;
+	swrawdata = rawdefs_en.SWrawDefs();
 	// Assort list of supported switches:
 	for (k=0; k<swrawdata.size(); k++)
 	{
@@ -384,21 +326,8 @@ bool SSMFlagbyteDefinitionsInterface::adjustments(std::vector<adjustment_intl_dt
 	if ((_CU != SSMprotocol::CUtype_Engine) && (_CU != SSMprotocol::CUtype_Transmission))
 		return false;
 	adjustments->clear();
-	if (_language == "de")
-	{
-		SSMFlagbyteDefinitions_de rawdefs_de;
-		adjustmentsrawdata = rawdefs_de.AdjustmentRawDefs();
-	}
-	else if (_language == "tr")	// Turkish
-	{
-		SSMFlagbyteDefinitions_tr rawdefs_tr;
-		adjustmentsrawdata = rawdefs_tr.AdjustmentRawDefs();
-	}
-	else
-	{
-		SSMFlagbyteDefinitions_en rawdefs_en;
-		adjustmentsrawdata = rawdefs_en.AdjustmentRawDefs();
-	}
+	SSMFlagbyteDefinitions_en rawdefs_en;
+	adjustmentsrawdata = rawdefs_en.AdjustmentRawDefs();
 	for (k=0; k<adjustmentsrawdata.size(); k++)
 	{
 		defline = adjustmentsrawdata.at(k);
@@ -486,21 +415,8 @@ bool SSMFlagbyteDefinitionsInterface::actuatorTests(std::vector<actuator_dt> *ac
 	actuators->clear();
 	if (!ATsup)
 		return true;
-	if (_language == "de")
-	{
-		SSMFlagbyteDefinitions_de rawdefs_de;
-		actuatorsrawdata = rawdefs_de.ActuatorRawDefs();
-	}
-	else if (_language == "tr")	// Turkish
-	{
-		SSMFlagbyteDefinitions_tr rawdefs_tr;
-		actuatorsrawdata = rawdefs_tr.ActuatorRawDefs();
-	}
-	else
-	{
-		SSMFlagbyteDefinitions_en rawdefs_en;
-		actuatorsrawdata = rawdefs_en.ActuatorRawDefs();
-	}
+	SSMFlagbyteDefinitions_en rawdefs_en;
+	actuatorsrawdata = rawdefs_en.ActuatorRawDefs();
 	for (k=0; k<actuatorsrawdata.size(); k++)
 	{
 		tmpstr = actuatorsrawdata.at(k).section(';', 0, 0);

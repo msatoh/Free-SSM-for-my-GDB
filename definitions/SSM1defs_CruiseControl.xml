@@ -59,8 +59,6 @@
 		<FORMULA>*1</FORMULA>
 		<PRECISION>0</PRECISION>
 		<TITLE lang="en">Vehicle speed signal</TITLE>
-		<TITLE lang="de">Geschwindigkeitssignal</TITLE>
-		<TITLE lang="tr">Araç hız sinyali</TITLE>
 
 	</MB>
 	<MB id="MB_MSP">
@@ -68,49 +66,27 @@
 		<FORMULA>*1</FORMULA>
 		<PRECISION>0</PRECISION>
 		<TITLE lang="en">Memorized cruise speed</TITLE>
-		<TITLE lang="de">gespeicherte Geschwindigkeit</TITLE>
-		<TITLE lang="tr">Hafızadaki sabit hız</TITLE>
 	</MB>
 	
 	<SW id="SW_SE">
 		<UNIT lang="en">Off/On</UNIT>
-		<UNIT lang="de">Aus/Ein</UNIT>
-		<UNIT lang="tr">Kapalı/Açık</UNIT>
 		<TITLE lang="en">SET/COAST switch</TITLE>
-		<TITLE lang="de">SET/COAST-Schalter</TITLE>
-		<TITLE lang="tr">SET/COAST düğmesi</TITLE>
 	</SW>
 	<SW id="SW_RE">
 		<UNIT lang="en">Off/On</UNIT>
-		<UNIT lang="de">Aus/Ein</UNIT>
-		<UNIT lang="tr">Kapalı/Açık</UNIT>
 		<TITLE lang="en">RESUME/ACCEL switch</TITLE>
-		<TITLE lang="de">RESUME/ACCEL-Schalter</TITLE>
-		<TITLE lang="tr">RESUME/ACCEL düğmesi</TITLE>
 	</SW>
 	<SW id="SW_ST">
 		<UNIT lang="en">Off/On</UNIT>
-		<UNIT lang="de">Aus/Ein</UNIT>
-		<UNIT lang="tr">Kapalı/Açık</UNIT>
 		<TITLE lang="en">Stop light switch</TITLE>
-		<TITLE lang="de">Bremslichtschalter</TITLE>
-		<TITLE lang="tr">Stop lambası düğmesi</TITLE>
 	</SW>
 	<SW id="SW_BR">
 		<UNIT lang="en">Off/On</UNIT>
-		<UNIT lang="de">Aus/Ein</UNIT>
-		<UNIT lang="tr">Kapalı/Açık</UNIT>
 		<TITLE lang="en">brake / clutch switch</TITLE>
-		<TITLE lang="de">Brems- und/oder Kupplungsschalter</TITLE>
-		<TITLE lang="tr">Fren / Debriyaj düğmesi</TITLE>
 	</SW>
 	<SW id="SW_N">
 		<UNIT lang="en">Off/On</UNIT>
-		<UNIT lang="de">Aus/Ein</UNIT>
-		<UNIT lang="tr">Kapalı/Açık</UNIT>
 		<TITLE lang="en">Inhibitor switch (AT)</TITLE>
-		<TITLE lang="de">Sperrschalter (AT)</TITLE>
-		<TITLE lang="tr">Inhibitör düğme (AT)</TITLE>
 	</SW>
 </DATA_COMMON>
 </FSSM_SSM1_DEFINITIONS>
