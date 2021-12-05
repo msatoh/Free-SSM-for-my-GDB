@@ -192,8 +192,6 @@ FreeSSM::FreeSSM(QApplication *app)
 	// CONNECT SIGNALS/SLOTS:
 	/* engine(); */
 	connect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
-	connect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
-	connect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	connect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
 	connect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
 	// NOTE: using released() instead of pressed() as workaround for a Qt-Bug occuring under MS Windows
@@ -205,8 +203,6 @@ FreeSSM::~FreeSSM()
 {
 	disconnect( _dump_action, SIGNAL( triggered() ), this, SLOT( dumpCUdata() ) );
 	disconnect( engine_pushButton, SIGNAL( released() ), this, SLOT( engine() ) );
-	disconnect( absvdc_pushButton, SIGNAL( released() ), this, SLOT( abs() ) );
-	disconnect( aircon_pushButton, SIGNAL( released() ), this, SLOT( aircon() ) );
 	disconnect( preferences_pushButton, SIGNAL( released() ), this, SLOT( preferences() ) );
 	disconnect( exit_pushButton, SIGNAL( released() ), this, SLOT( close() ) );
 	delete _dump_action;
@@ -247,53 +243,6 @@ void FreeSSM::engine(QStringList cmdline_args)
 		delete diagInterface;
 	}
 }
-
-
-void FreeSSM::abs(QStringList cmdline_args)
-{
-	if (_dumping) return;
-	ControlUnitDialog::ContentSelection csel = ControlUnitDialog::ContentSelection::DCsMode;
-	if(!getContentSelectionFromCmdLine(&cmdline_args, &csel))
-		exit(ERROR_BADCMDLINEARGS);
-	AbstractDiagInterface *diagInterface = initInterface();
-	if (diagInterface)
-	{
-		ABSdialog *absdialog = new ABSdialog(diagInterface, _language);
-#ifdef SMALL_RESOLUTION
-		absdialog->showFullScreen();
-#else
-		absdialog->show();
-#endif
-		if (absdialog->setup( csel, cmdline_args ))
-			absdialog->exec();
-		delete absdialog;
-		delete diagInterface;
-	}
-}
-
-
-void FreeSSM::aircon(QStringList cmdline_args)
-{
-	if (_dumping) return;
-	ControlUnitDialog::ContentSelection csel = ControlUnitDialog::ContentSelection::DCsMode;
-	if(!getContentSelectionFromCmdLine(&cmdline_args, &csel))
-		exit(ERROR_BADCMDLINEARGS);
-	AbstractDiagInterface *diagInterface = initInterface();
-	if (diagInterface)
-	{
-		AirConDialog *aircondialog = new AirConDialog(diagInterface, _language);
-#ifdef SMALL_RESOLUTION
-		aircondialog->showFullScreen();
-#else
-		aircondialog->show();
-#endif
-		if (aircondialog->setup( csel, cmdline_args ))
-			aircondialog->exec();
-		delete aircondialog;
-		delete diagInterface;
-	}
-}
-
 
 void FreeSSM::preferences()
 {

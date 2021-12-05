@@ -201,28 +201,7 @@ bool ControlUnitDialog::setup(ContentSelection csel, QStringList cmdline_args)
 	if (!getParametersFromCmdLine(&cmdline_args, &mbssws_selfile, &autostart))
 		exit(ERROR_BADCMDLINEARGS);
 	// ***** Create and insert the content widget *****:
-	if (!prepareContentWidget(mode))
-		return false;
-	// ***** Connect to Control Unit *****:
-	if (systemRequiresManualON())
-	{
-		// Inform user that system needs to be switched on manually:
-		QMessageBox *msgbox = new QMessageBox(QMessageBox::Information, tr("Prepare system"), QString(tr("Please switch the %1 system on.").arg(systemName())), QMessageBox::NoButton, this);
-		QPushButton *button = msgbox->addButton(QMessageBox::Ok);
-		button->setText(tr("Continue"));
-		msgbox->addButton(QMessageBox::Cancel);
-		QFont msgfont = msgbox->font();
-		msgfont.setPointSize(9);
-		msgbox->setFont( msgfont );
-		msgbox->show();
-		int ret = msgbox->exec();
-		delete msgbox;
-		if (ret != QMessageBox::Ok)
-		{
-			close();
-			return false;
-		}
-	}
+	prepareContentWidget(mode);
 	// Create Status information message box for CU initialisation/setup:
 	FSSM_InitStatusMsgBox initstatusmsgbox(tr("Connecting to %1... Please wait !").arg(controlUnitName()), 0, 0, 100, this);
 	initstatusmsgbox.setWindowTitle(tr("Connecting..."));
@@ -388,7 +367,7 @@ bool ControlUnitDialog::displaySystemDescriptionAndID(SSMprotocol *SSMPdev, CUin
 }
 
 
-bool ControlUnitDialog::prepareContentWidget(Mode mode)
+void ControlUnitDialog::prepareContentWidget(Mode mode)
 {
 	// ***** Create, setup and insert the content widget *****:
 	if (mode == Mode::DCs)
@@ -412,9 +391,6 @@ bool ControlUnitDialog::prepareContentWidget(Mode mode)
 		setContentWidget(tr("Adjustments:"), _content_Adjustments);
 		_content_Adjustments->show();
 	}
-	else // BUG
-		return false;
-	return true;
 }
 
 
@@ -616,9 +592,9 @@ void ControlUnitDialog::switchToDCsMode()
 	// Save content settings:
 	saveContentSettings();
 	// Create and insert new content widget:
-	if (prepareContentWidget(Mode::DCs))
-		// Start DCs mode:
-		com_err = !startDCsMode();
+	prepareContentWidget(Mode::DCs);
+	// Start DCs mode:
+	com_err = !startDCsMode();
 	// Close wait-message:
 	waitmsgbox.close();
 	// Check for communication error:
@@ -637,9 +613,9 @@ void ControlUnitDialog::switchToMBsSWsMode()
 	// Save content settings:
 	saveContentSettings();
 	// Create and insert new content widget:
-	if (prepareContentWidget(Mode::MBsSWs))
-		// Start MB/SW mode:
-		com_err = !startMBsSWsMode();
+	prepareContentWidget(Mode::MBsSWs);
+	// Start MB/SW mode:
+	com_err = !startMBsSWsMode();
 	// Close wait-message:
 	waitmsgbox.close();
 	// Check for communication error:
@@ -658,9 +634,9 @@ void ControlUnitDialog::switchToAdjustmentsMode()
 	// Save content settings:
 	saveContentSettings();
 	// Create and insert new content widget:
-	if (prepareContentWidget(Mode::Adjustments))
-		// Start Adjustments mode:
-		com_err = !startAdjustmentsMode();
+	prepareContentWidget(Mode::Adjustments);
+	// Start Adjustments mode:
+	com_err = !startAdjustmentsMode();
 	// Close wait-message:
 	waitmsgbox.close();
 	// Check for communication error:
@@ -679,9 +655,9 @@ void ControlUnitDialog::switchToSystemOperationTestsMode()
 	// Save content settings:
 	saveContentSettings();
 	// Create and insert new content widget:
-	if (prepareContentWidget(Mode::SysTests))
-		// Start System Operation Tests mode:
-		com_err = !startSystemOperationTestsMode();
+	prepareContentWidget(Mode::SysTests);
+	// Start System Operation Tests mode:
+	com_err = !startSystemOperationTestsMode();
 	// Close wait-message:
 	waitmsgbox.close();
 	// Check for communication error:

@@ -30,8 +30,6 @@
 #include "SSMP2communication.h"
 #include "libFSSM.h"
 #include "EngineDialog.h"
-#include "ABSdialog.h"
-#include "AirConDialog.h"
 #include "Preferences.h"
 #include "ui_FreeSSM.h"
 #include "SSMCUdata.h"
@@ -64,8 +62,6 @@ public:
 
 public slots:
 	void engine(QStringList cmdline_args = QStringList());
-	void abs(QStringList cmdline_args = QStringList());
-	void aircon(QStringList cmdline_args = QStringList());
 
 private slots:
 	void preferences();

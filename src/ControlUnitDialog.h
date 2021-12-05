@@ -74,11 +74,10 @@ private:
 	virtual QString systemName() = 0;
 	virtual QString controlUnitName() = 0;
 	virtual SSMprotocol::CUtype_dt controlUnitType() = 0;
-	virtual bool systemRequiresManualON() = 0;
 	virtual CUcontent_DCs_abstract * allocate_DCsContentWidget() = 0;
 	bool displaySystemDescriptionAndID(SSMprotocol *SSMPdev, CUinfo_abstract *abstractInfoWidget);
 	virtual bool displayExtendedCUinfo(SSMprotocol *SSMPdev, CUinfo_abstract *abstractInfoWidget, FSSM_InitStatusMsgBox *initstatusmsgbox = NULL) = 0;
-	bool prepareContentWidget(Mode mode);
+	void prepareContentWidget(Mode mode);
 	void setContentWidget(QString title, QWidget *contentwidget);
 	QWidget * contentWidget();
 	bool getParametersFromCmdLine(QStringList *cmdline_args, QString *selection_file, bool *autostart);

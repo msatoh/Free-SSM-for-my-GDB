@@ -49,12 +49,6 @@ SSMprotocol::CUtype_dt EngineDialog::controlUnitType()
 }
 
 
-bool EngineDialog::systemRequiresManualON()
-{
-	return false;
-}
-
-
 CUcontent_DCs_abstract * EngineDialog::allocate_DCsContentWidget()
 {
 	return new CUcontent_DCs_engine();

@@ -14,8 +14,6 @@ INCLUDEPATH += . src src/tinyxml
 HEADERS += src/FreeSSM.h \
            src/CmdLine.h \
            src/EngineDialog.h \
-           src/ABSdialog.h \
-           src/AirConDialog.h \
            src/Preferences.h \
            src/FSSMdialogs.h \
            src/ActuatorTestDlg.h \
@@ -59,8 +57,6 @@ SOURCES += src/main.cpp \
            src/FreeSSM.cpp \
            src/CmdLine.cpp \
            src/EngineDialog.cpp \
-           src/ABSdialog.cpp \
-           src/AirConDialog.cpp \
            src/Preferences.cpp \
            src/FSSMdialogs.cpp \
            src/ActuatorTestDlg.cpp \

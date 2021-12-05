@@ -50,10 +50,6 @@ static bool applyCmdLineStartupOptions(FreeSSM *freessm_mainwindow, QStringList 
 	cu_str = option_values.at(0);
 	if (cu_str == "engine")
 		freessm_mainwindow->engine(cmdline_args);
-	else if (cu_str == "absvdc")
-		freessm_mainwindow->abs(cmdline_args);
-	else if (cu_str == "aircon")
-		freessm_mainwindow->aircon(cmdline_args);
 	else
 	{
 		CmdLine::printError("invalid control unit specified with option -c/--controlunit");
