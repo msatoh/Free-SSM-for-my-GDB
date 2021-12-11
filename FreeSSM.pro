@@ -1,7 +1,7 @@
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 CONFIG += debug_and_release	# warning: specifying EITHER release OR debug breaks the dll installation target on Windows !
-#CONFIG += small-resolution	# Uncomment this line if you want the project to be build for small resolution by default
+CONFIG += small-resolution	# Uncomment this line if you want the project to be build for small resolution by default
 
 TEMPLATE = app
 TARGET = FreeSSM
@@ -35,7 +35,6 @@ HEADERS += src/FreeSSM.h \
            src/CUinfo_simple.h \
            src/CUcontent_DCs_abstract.h \
            src/CUcontent_DCs_engine.h \
-           src/CUcontent_DCs_twoMemories.h \
            src/CUcontent_DCs_stopCodes.h \
            src/CUcontent_MBsSWs.h \
            src/CUcontent_MBsSWs_tableView.h \
@@ -77,7 +76,6 @@ SOURCES += src/main.cpp \
            src/CUinfo_simple.cpp \
            src/CUcontent_DCs_abstract.cpp \
            src/CUcontent_DCs_engine.cpp \
-           src/CUcontent_DCs_twoMemories.cpp \
            src/CUcontent_DCs_stopCodes.cpp \
            src/CUcontent_MBsSWs.cpp \
            src/CUcontent_MBsSWs_tableView.cpp \
@@ -100,7 +98,6 @@ small-resolution {
   FORMS += ui/small/FreeSSM.ui \
            ui/small/ControlUnitDialog.ui \
            ui/small/CUcontent_DCs_engine.ui \
-           ui/small/CUcontent_DCs_twoMemories.ui \
            ui/small/CUcontent_DCs_stopCodes.ui \
            ui/small/CUcontent_MBsSWs.ui \
            ui/small/CUcontent_MBsSWs_tableView.ui \
@@ -115,7 +112,6 @@ small-resolution {
   FORMS += ui/FreeSSM.ui \
            ui/ControlUnitDialog.ui \
            ui/CUcontent_DCs_engine.ui \
-           ui/CUcontent_DCs_twoMemories.ui \
            ui/CUcontent_DCs_stopCodes.ui \
            ui/CUcontent_MBsSWs.ui \
            ui/CUcontent_MBsSWs_tableView.ui \

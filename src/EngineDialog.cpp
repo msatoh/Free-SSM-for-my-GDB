@@ -26,7 +26,6 @@ EngineDialog::EngineDialog(AbstractDiagInterface *diagInterface, QString languag
 	// Add information widget:
 	setInfoWidget( new CUinfo_Engine() );
 	// Add content:
-	addContent(ContentSelection::DCsMode);
 	addContent(ContentSelection::MBsSWsMode);
 	addContent(ContentSelection::AdjustmentsMode);
 }

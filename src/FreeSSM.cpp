@@ -544,11 +544,7 @@ bool FreeSSM::getContentSelectionFromCmdLine(QStringList *cmdline_args, ControlU
 	}
 	// Validate content selection string and return corresponding value:
 	selstr = values.at(0);
-	if (selstr == "dcs")
-	{
-		*csel = ControlUnitDialog::ContentSelection::DCsMode;
-	}
-	else if (selstr == "mbssws")
+	if (selstr == "mbssws")
 	{
 		*csel = ControlUnitDialog::ContentSelection::MBsSWsMode;
 	}

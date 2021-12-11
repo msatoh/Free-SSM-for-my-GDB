@@ -40,14 +40,14 @@ class ControlUnitDialog : public QDialog, private Ui::ControlUnit_Dialog
 	Q_OBJECT
 
 public:
-	enum class ContentSelection {DCsMode, MBsSWsMode, AdjustmentsMode, ClearMemoryFcn, ClearMemory2Fcn};
+	enum class ContentSelection {MBsSWsMode, AdjustmentsMode, ClearMemoryFcn, ClearMemory2Fcn};
 
 	ControlUnitDialog(QString title, AbstractDiagInterface *diagInterface, QString language);
 	~ControlUnitDialog();
 	bool setup(ContentSelection csel, QStringList cmdline_args = QStringList());
 
 protected:
-	enum class Mode {None, DCs, MBsSWs, Adjustments, SysTests};
+	enum class Mode {None, MBsSWs, Adjustments, SysTests};
 
 	void addContent(ContentSelection csel);
 	bool contentSupported(ContentSelection csel);
@@ -86,7 +86,6 @@ private:
 	void setContentSelectionButtonChecked(ContentSelection csel, bool checked);
 	SSMprotocol::CUsetupResult_dt probeProtocol(SSMprotocol::CUtype_dt CUtype);
 	bool startMode(Mode mode);
-	bool startDCsMode();
 	bool startMBsSWsMode();
 	bool startAdjustmentsMode();
 	bool startSystemOperationTestsMode();
@@ -95,7 +94,6 @@ private:
 	void closeEvent(QCloseEvent *event);
 
 private slots:
-	void switchToDCsMode();
 	void switchToMBsSWsMode();
 	void switchToAdjustmentsMode();
 	void switchToSystemOperationTestsMode();

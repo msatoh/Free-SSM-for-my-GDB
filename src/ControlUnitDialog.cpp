@@ -107,13 +107,7 @@ void ControlUnitDialog::addContent(ContentSelection csel)
 	QString title;
 	QIcon icon;
 	bool checkable;
-	if (csel == ContentSelection::DCsMode)
-	{
-		title = tr("&Diagnostic Codes");
-		icon = QIcon(QString::fromUtf8(":/icons/chrystal/22x22/messagebox_warning.png"));
-		checkable = true;
-	}
-	else if (csel == ContentSelection::MBsSWsMode)
+	if (csel == ContentSelection::MBsSWsMode)
 	{
 		title = tr("&Measuring Blocks");
 		icon = QIcon(QString::fromUtf8(":/icons/oxygen/22x22/applications-utilities.png"));
@@ -162,9 +156,7 @@ void ControlUnitDialog::addContent(ContentSelection csel)
 	}
 	button->setText(title);
 	// Connect buttons with slots:
-	if (csel == ContentSelection::DCsMode)
-		connect( button, SIGNAL( clicked() ), this, SLOT( switchToDCsMode() ) );
-	else if (csel == ContentSelection::MBsSWsMode)
+	if (csel == ContentSelection::MBsSWsMode)
 		connect( button, SIGNAL( clicked() ), this, SLOT( switchToMBsSWsMode() ) );
 	else if (csel == ContentSelection::AdjustmentsMode)
 		connect( button, SIGNAL( clicked() ), this, SLOT( switchToAdjustmentsMode() ) );
@@ -294,7 +286,6 @@ bool ControlUnitDialog::setup(ContentSelection csel, QStringList cmdline_args)
 		setContentSelectionButtonEnabled(ContentSelection::ClearMemory2Fcn, supported);
 	}
 	// NOTE: enable modes unconditionally, UI contents are deactivated if unsupported by the CU
-	setContentSelectionButtonEnabled(ContentSelection::DCsMode, true);
 	setContentSelectionButtonEnabled(ContentSelection::MBsSWsMode, true);
 	setContentSelectionButtonEnabled(ContentSelection::AdjustmentsMode, true);
 	// ***** Start selected Control Unit content/functionality *****:
@@ -370,14 +361,7 @@ bool ControlUnitDialog::displaySystemDescriptionAndID(SSMprotocol *SSMPdev, CUin
 void ControlUnitDialog::prepareContentWidget(Mode mode)
 {
 	// ***** Create, setup and insert the content widget *****:
-	if (mode == Mode::DCs)
-	{
-		setContentSelectionButtonChecked(ContentSelection::DCsMode, true);
-		_content_DCs = allocate_DCsContentWidget();
-		setContentWidget(tr("Diagnostic Codes:"), _content_DCs);
-		_content_DCs->show();
-	}
-	else if (mode == Mode::MBsSWs)
+	if (mode == Mode::MBsSWs)
 	{
 		setContentSelectionButtonChecked(ContentSelection::MBsSWsMode, true);
 		_content_MBsSWs = new CUcontent_MBsSWs(_MBSWsettings);
@@ -477,9 +461,7 @@ bool ControlUnitDialog::getParametersFromCmdLine(QStringList *cmdline_args, QStr
 
 bool ControlUnitDialog::getModeForContentSelection(ContentSelection csel, Mode *mode)
 {
-	if (csel == ContentSelection::DCsMode)
-		*mode = Mode::DCs;
-	else if (csel == ContentSelection::MBsSWsMode)
+	if (csel == ContentSelection::MBsSWsMode)
 		*mode = Mode::MBsSWs;
 	else if (csel == ContentSelection::AdjustmentsMode)
 		*mode = Mode::Adjustments;
@@ -582,27 +564,6 @@ SSMprotocol::CUsetupResult_dt ControlUnitDialog::probeProtocol(SSMprotocol::CUty
 }
 
 
-void ControlUnitDialog::switchToDCsMode()
-{
-	bool com_err = false;
-	if (_mode == Mode::DCs) return;
-	// Show wait-message:
-	FSSM_WaitMsgBox waitmsgbox(this, tr("Switching to Diagnostic Codes... Please wait !"));
-	waitmsgbox.show();
-	// Save content settings:
-	saveContentSettings();
-	// Create and insert new content widget:
-	prepareContentWidget(Mode::DCs);
-	// Start DCs mode:
-	com_err = !startDCsMode();
-	// Close wait-message:
-	waitmsgbox.close();
-	// Check for communication error:
-	if (com_err)
-		communicationError();
-}
-
-
 void ControlUnitDialog::switchToMBsSWsMode()
 {
 	bool com_err = false;
@@ -669,34 +630,13 @@ void ControlUnitDialog::switchToSystemOperationTestsMode()
 bool ControlUnitDialog::startMode(Mode mode)
 {
 	bool ok = true;
-	if (mode == Mode::DCs)
-		ok = startDCsMode();
-	else if (mode == Mode::MBsSWs)
+	if (mode == Mode::MBsSWs)
 		ok = startMBsSWsMode();
 	else if (mode == Mode::Adjustments)
 		ok = startAdjustmentsMode();
 	else // BUG
 		ok = false;
 	return ok;
-}
-
-
-bool ControlUnitDialog::startDCsMode()
-{
-	int DCgroups = 0;
-	if (_content_DCs == NULL)
-		return false;
-	if (!_content_DCs->setup(_SSMPdev))
-		return false;
-	if (!_SSMPdev->getSupportedDCgroups(&DCgroups))
-		return false;
-	if (DCgroups == SSMprotocol::noDCs_DCgroup)
-		return false;
-	if (!_content_DCs->startDCreading())
-		return false;
-	connect(_content_DCs, SIGNAL( error() ), this, SLOT( close() ) );
-	_mode = Mode::DCs;
-	return true;
 }
 
 
