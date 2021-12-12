@@ -1,20 +1,5 @@
 /*
- * SSMLegacyDefinitionsInterface.cpp - Interface to the SSM legacy definitions
- *
- * Copyright (C) 2009-2019 Comer352L
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * refer also to SSM1defs_Engine.xml
  */
 
 #include <SSMLegacyDefinitionsInterface.h>
@@ -535,7 +520,7 @@ bool SSMLegacyDefinitionsInterface::measuringBlocks(std::vector<mb_intl_dt> *mbs
 	std::vector<XMLElement*> MB_elements2;
 	const char *str = NULL;
 	mbs->clear();
-	if (_defs_root_element)
+	if (_defs_root_element) // set IDs
 		MB_elements = getAllMatchingChildElements(_defs_root_element, "MB");
 	if (_defs_for_id_b1_element)
 	{

@@ -77,7 +77,7 @@ AddMBsSWsDlg::AddMBsSWsDlg(QWidget *parent, std::vector<mb_dt> supportedMBs, std
 			items.push_back(Item { BlockType::MB, mb.title, mb.unit });
 
 			// Put MB to the list of unselected MBs/SWs:
-			tmpMBSWmd.nativeIndex = k;
+			tmpMBSWmd.nativeIndex = k;// put k as the order of intended parameter?
 			_unselectedMBsSWs_metaList.push_back( tmpMBSWmd );
 		}
 	}
