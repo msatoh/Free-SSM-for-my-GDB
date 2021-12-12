@@ -541,6 +541,7 @@ bool SSMLegacyDefinitionsInterface::measuringBlocks(std::vector<mb_intl_dt> *mbs
 	{
 		std::vector<XMLElement*> tmp_elements;
 		mb_intl_dt mb;
+		// --get ID and addresses from DEFENITIONS area (forer part of SSM1defs_Engine.xml)--
 		// Get ID:
 		std::string id;
 		id = MB_elements.at(k)->Attribute("id");
