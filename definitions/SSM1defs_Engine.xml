@@ -1484,7 +1484,7 @@
 		<UNIT lang="all">°C</UNIT>
 		<FORMULA>-50</FORMULA>
 		<PRECISION>0</PRECISION>
-		<TITLE lang="en">Water temperature</TITLE>
+		<TITLE lang="en">Coolant temperature</TITLE>
 	</MB>
 	<MB id="MB_ADVS">
 		<UNIT lang="all">°</UNIT>
@@ -1532,13 +1532,13 @@
 		<UNIT lang="all">V</UNIT>
 		<FORMULA>*-64/450+45/10</FORMULA>
 		<PRECISION>2</PRECISION>
-		<TITLE lang="en">Throttle sensor</TITLE>
+		<TITLE lang="en">Throttle sensor L</TITLE>
 	</MB>
 	<MB id="MB_THV_SVX">
 		<UNIT lang="all">V</UNIT>
 		<FORMULA>*100/255</FORMULA>
 		<PRECISION>2</PRECISION>
-		<TITLE lang="en">Throttle sensor</TITLE>
+		<TITLE lang="en">Throttle sensor SVX</TITLE>
 	</MB>
 	<MB id="MB_TIM">
 		<UNIT lang="all">ms</UNIT>
@@ -1694,7 +1694,7 @@
 		<UNIT lang="all">mmHg</UNIT>
 		<FORMULA>*3</FORMULA>
 		<PRECISION>0</PRECISION>
-		<TITLE lang="en">Atmospheric pressure</TITLE>
+		<TITLE lang="en">Atmospheric pressure SVX</TITLE>
 	</MB>
 	<MB id="MB_COADJ">
 		<UNIT lang="all">kg/h</UNIT>
