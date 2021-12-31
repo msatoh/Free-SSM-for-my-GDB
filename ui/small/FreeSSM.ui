@@ -135,6 +135,54 @@
       </item>
      </layout>
     </item>
+    <item row="2" column="2">
+      <widget class="QPushButton" name="exit_pushButton">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>12</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="text">
+         <string>E&amp;xit</string>
+        </property>
+        <property name="icon">
+         <iconset resource="../../resources/FreeSSM.qrc">
+          <normaloff>:/icons/oxygen/32x32/system-shutdown.png</normaloff>:/icons/oxygen/32x32/system-shutdown.png</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>32</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="autoDefault">
+         <bool>false</bool>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+      </widget>
+      </item>
    </layout>
   </widget>
  </widget>
