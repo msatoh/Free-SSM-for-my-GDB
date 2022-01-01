@@ -5,16 +5,30 @@ import time
 TIME_OUT=1
 
 class dataset:
-    def __init__(nm):
-        if nm=="water temp":
+    dataid=[]
+    unit=""
+    def __init__(self, nm):
+        if nm==1:
             dataid=[0x00, 0x00, 0x08]
             unit="℃"
-        elif nm=="inmani pressure":
+        elif nm==2:
             dataid=[0x00, 0x00, 0x0d]
             unit="kPa"
-        elif nm=="throttle sensor":
+        elif nm==3:
             dataid=[0x00, 0x00, 0x15]
             unit="%"
+    def definition( nm):
+        if nm==1:
+            dataid=[0x00, 0x00, 0x08]
+            unit="℃"
+        elif nm==2:
+            dataid=[0x00, 0x00, 0x0d]
+            unit="kPa"
+        elif nm==3:
+            dataid=[0x00, 0x00, 0x15]
+            unit="%"
+
+
     def return_data(data):
         if dataid==[0x00, 0x00, 0x08]:
             return data-40
@@ -78,11 +92,13 @@ def receive_data(sid,data):
     message=receive_msg()
     if not(message in ["format error.","check sum error.","timed out."]):
         if message[4]==0xe8:
-            length=len(data)
+            lengthdata=len(data)
             conv_data=[]
-            if message[3]>=length*3+2 and message[3]<length*3+5:
-                for i in range(length):
-                    conv_data.append(data[i]+data[i].return_data(message[3*i+5])+data[i].unit)
+#            print(message[3])
+            if message[3]>=lengthdata+1:
+                for i in range(lengthdata):
+                    conv_data.append(data[i])
+                    conv_data.append(message[i+5])
                 print(conv_data)
             else:
                 print("number of data mismatched.")
@@ -105,16 +121,16 @@ ser = serial.Serial(
 def comm(sid, data):
     if sid==0xa8:
         comp_data=[0x00]
-        for i in data:
-            comp_data=comp_data+data[i].dataid
-        send_data([sid]+comp_data)
+#        for i in range(len(data)):
+#            comp_data=comp_data+data[i].dataid
+        send_data([sid]+[0x00, 0x00, 0x00, 0x0d, 0x00, 0x00, 0x15])
         receive_data(sid,data)
     else:
         send_data(data)
         print(receive_msg())
 
 if __name__=="__main__":
-    data1=dataset("water temp")
-    data2=dataset("inmani pressure")
+    data1=dataset.definition(1)
+    data2=dataset.definition(2)
     while True:
         comm(0xa8, [data1,data2])
