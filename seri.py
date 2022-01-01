@@ -99,7 +99,7 @@ def receive_data(sid,data):
         ]):
         if message[4]==0xe8:
             datalength=len(data)
-            if message[3]>=datalength+1:
+            if message[3]==datalength+1:
                 for i in range(datalength):
                     data[i].input_data(message[i+5])
                     print(data[i].item,"=",data[i].calc_data(data[i].nowdata),data[i].unit," time:",data[i].last_updated,end="ms ")
