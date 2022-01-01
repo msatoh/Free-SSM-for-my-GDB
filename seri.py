@@ -4,6 +4,26 @@ import time
 
 TIME_OUT=1
 
+class dataset:
+    def __init__(nm):
+        if nm=="water temp":
+            dataid=[0x00, 0x00, 0x08]
+            unit="℃"
+        elif nm=="inmani pressure":
+            dataid=[0x00, 0x00, 0x0d]
+            unit="kPa"
+        elif nm=="throttle sensor":
+            dataid=[0x00, 0x00, 0x15]
+            unit="%"
+    def return_data(data):
+        if dataid==[0x00, 0x00, 0x08]:
+            return data-40
+        elif dataid==[0x00, 0x00, 0x0d]:
+            return data
+        elif dataid==[0x00, 0x00, 0x15]:
+            return data*100/255
+
+
 def send_msg( buf ):
     sent=False
     begin=time.time()
@@ -24,8 +44,9 @@ def send_msg( buf ):
             break
 
 def send_data(data):
-    cs=[(128+16+240+len(data)+sum(data))%256]
-    send_msg([0x80, 0x10, 0xf0]+[len(data)]+data+cs)
+    length=len(data)
+    cs=[(128+16+240+length+sum(data))%256]
+    send_msg([0x80, 0x10, 0xf0]+[length]+data+cs)
 
 def receive_msg():
     mes_list=[]
@@ -39,14 +60,11 @@ def receive_msg():
                 begin=time.time()
             else:
                 return "format error."
-#        elif len(mes_list)==3:
-#            if not(mes_list[1]==240 and mes_list[2]==16):
-#                mes_list=[]
         elif len(mes_list)==4:
             mes_len=mes_list[3]
         elif len(mes_list)>4:
             if mes_len==0:
-                if mes_list[len(mes_list)-1]==sum(mes_list[0:len(mes_list)-1])%256:
+                if mes_list[-1]==sum(mes_list[0:-1])%256:
                     if (mes_list[1]==240 and mes_list[2]==16):
                         return mes_list
                     else:
@@ -55,6 +73,23 @@ def receive_msg():
                     return "check sum error."
             mes_len-=1
     return "timed out."
+
+def receive_data(sid,data):
+    message=receive_msg()
+    if not(message in ["format error.","check sum error.","timed out."]):
+        if message[4]==0xe8:
+            length=len(data)
+            conv_data=[]
+            if message[3]>=length*3+2 and message[3]<length*3+5:
+                for i in range(length):
+                    conv_data.append(data[i]+data[i].return_data(message[3*i+5])+data[i].unit)
+                print(conv_data)
+            else:
+                print("number of data mismatched.")
+        else:
+            print("inapropriate responce.")
+    else:
+        print(message)
 
 ser = serial.Serial(
     port = "/dev/ttyUSB0",
@@ -67,7 +102,19 @@ ser = serial.Serial(
     #rtscts = 0,
     )
 
+def comm(sid, data):
+    if sid==0xa8:
+        comp_data=[0x00]
+        for i in data:
+            comp_data=comp_data+data[i].dataid
+        send_data([sid]+comp_data)
+        receive_data(sid,data)
+    else:
+        send_data(data)
+        print(receive_msg())
+
 if __name__=="__main__":
+    data1=dataset("water temp")
+    data2=dataset("inmani pressure")
     while True:
-        send_data([0xbf])
-        print("rx: ",receive_msg())
+        comm(0xa8, [data1,data2])
