@@ -28,9 +28,6 @@
 #include "SSMprotocol.h"
 #include "SSMFlagbyteDefinitions_SysDescriptions.h"
 #include "SSMFlagbyteDefinitions_en.h"
-#include "SSMFlagbyteDefinitions_de.h"
-#include "SSMFlagbyteDefinitions_tr.h"
-
 
 
 class SSMFlagbyteDefinitionsInterface: public SSMFlagbyteDefinitions_SysDescriptions

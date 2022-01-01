@@ -45,8 +45,6 @@ HEADERS += src/FreeSSM.h \
            src/SSMFlagbyteDefinitionsInterface.h \
            src/SSMFlagbyteDefinitions_SysDescriptions.h \
            src/SSMFlagbyteDefinitions_en.h \
-           src/SSMFlagbyteDefinitions_de.h \
-           src/SSMFlagbyteDefinitions_tr.h \
            src/SSMCUdata.h \
            src/ClearMemoryDlg.h \
            src/libFSSM.h \
@@ -86,8 +84,6 @@ SOURCES += src/main.cpp \
            src/SSMFlagbyteDefinitionsInterface.cpp \
            src/SSMFlagbyteDefinitions_SysDescriptions.cpp \
            src/SSMFlagbyteDefinitions_en.cpp \
-           src/SSMFlagbyteDefinitions_de.cpp \
-           src/SSMFlagbyteDefinitions_tr.cpp \
            src/SSMCUdata.cpp \
            src/ClearMemoryDlg.cpp \
            src/libFSSM.cpp \
