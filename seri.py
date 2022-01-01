@@ -6,34 +6,38 @@ TIME_OUT=1
 
 class dataset:
     dataid=[]
+    item=""
     unit=""
+    nowdata=0x00
+    MAX=0x00
+    min=0xff
+    last_updated=0
+        
     def __init__(self, nm):
+        self.item=nm
         if nm=="coolant temp":
-            dataid=[0x00, 0x00, 0x08]
-            unit="℃"
+            self.dataid=[0x00, 0x00, 0x08]
+            self.unit="℃"
         elif nm=="inmani pressure":
-            dataid=[0x00, 0x00, 0x0d]
-            unit="kPa"
+            self.dataid=[0x00, 0x00, 0x0d]
+            self.unit="kPa"
         elif nm=="throttle sensor":
-            dataid=[0x00, 0x00, 0x15]
-            unit="%"
-    def definition( nm):
-        if nm=="coolant temp":
-            dataid=[0x00, 0x00, 0x08]
-            unit="℃"
-        elif nm=="inmani pressure":
-            dataid=[0x00, 0x00, 0x0d]
-            unit="kPa"
-        elif nm=="throttle sensor":
-            dataid=[0x00, 0x00, 0x15]
-            unit="%"
-    def return_data(data):
-        if dataid==[0x00, 0x00, 0x08]:
+            self.dataid=[0x00, 0x00, 0x15]
+            self.unit="%"
+    def calc_data(self,data):
+        if self.dataid==[0x00, 0x00, 0x08]:
             return data-40
-        elif dataid==[0x00, 0x00, 0x0d]:
+        elif self.dataid==[0x00, 0x00, 0x0d]:
             return data
-        elif dataid==[0x00, 0x00, 0x15]:
+        elif self.dataid==[0x00, 0x00, 0x15]:
             return data*100/255
+    def input_data(self,data):
+        self.nowdata=data
+        self.last_updated=time.time()
+        if self.nowdata>self.MAX:
+            self.MAX=self.nowdata
+        if self.nowdata<self.min:
+            self.min=self.nowdata
 
 
 def send_msg( buf ):
@@ -88,16 +92,18 @@ def receive_msg():
 
 def receive_data(sid,data):
     message=receive_msg()
-    if not(message in ["format error.","check sum error.","timed out."]):
+    if not(message in [
+        "format error.",
+        "check sum error.",
+        "timed out."
+        ]):
         if message[4]==0xe8:
-            lengthdata=len(data)
-            conv_data=[]
-#            print(message[3])
-            if message[3]>=lengthdata+1:
-                for i in range(lengthdata):
-                    conv_data.append(data[i])
-                    conv_data.append(message[i+5])
-                print(conv_data)
+            datalength=len(data)
+            if message[3]>=datalength+1:
+                for i in range(datalength):
+                    data[i].input_data(message[i+5])
+                    print(data[i].item,"=",data[i].calc_data(data[i].nowdata),data[i].unit," time:",data[i].last_updated,end="ms ")
+                print("\n")
             else:
                 print("number of data mismatched.")
         else:
@@ -106,7 +112,7 @@ def receive_data(sid,data):
         print(message)
 
 ser = serial.Serial(
-    port = "/dev/ttyUSB0",
+    port = "/dev/ttyUSB*",
     baudrate = 4800,
     #parity = serial.PARITY_NONE,
     #bytesize = serial.EIGHTBITS,
@@ -119,16 +125,16 @@ ser = serial.Serial(
 def comm(sid, data):
     if sid==0xa8:
         comp_data=[0x00]
-#        for i in range(len(data)):
-#            comp_data=comp_data+data[i].dataid
-        send_data([sid]+[0x00, 0x00, 0x00, 0x0d, 0x00, 0x00, 0x15])
+        for i in data:
+            comp_data=comp_data+data[i].dataid
+        send_data([sid]+comp_data)
         receive_data(sid,data)
     else:
         send_data(data)
         print(receive_msg())
 
 if __name__=="__main__":
-    data1=dataset.definition("coolant temp")
-    data2=dataset.definition("inmani pressure")
+    data1=dataset("coolant temp")
+    data2=dataset("inmani pressure")
     while True:
         comm(0xa8, [data1,data2])
