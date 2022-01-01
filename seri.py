@@ -4,7 +4,7 @@ import time
 
 TIME_OUT=1
 
-def send( buf ):
+def send_msg( buf ):
     sent=False
     begin=time.time()
     while ser.out_waiting>=0:
@@ -23,7 +23,11 @@ def send( buf ):
         else:
             break
 
-def receive():
+def send_data(data):
+    cs=[(128+16+240+len(data)+sum(data))%256]
+    send_msg([0x80, 0x10, 0xf0]+[len(data)]+data+cs)
+
+def receive_msg():
     mes_list=[]
     begin=time.time()
     while time.time()-begin < TIME_OUT or len(mes_list)==0:
@@ -64,8 +68,6 @@ ser = serial.Serial(
     )
 
 if __name__=="__main__":
-    mes = [0x80, 0x10, 0xF0, 0x01, 0xBF, 0x40] #msg formatter needed.
     while True:
-        send(mes)
-        print("rx: ",receive())
-
+        send_data([0xbf])
+        print("rx: ",receive_msg())
