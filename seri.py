@@ -8,27 +8,25 @@ class dataset:
     dataid=[]
     unit=""
     def __init__(self, nm):
-        if nm==1:
+        if nm=="coolant temp":
             dataid=[0x00, 0x00, 0x08]
             unit="℃"
-        elif nm==2:
+        elif nm=="inmani pressure":
             dataid=[0x00, 0x00, 0x0d]
             unit="kPa"
-        elif nm==3:
+        elif nm=="throttle sensor":
             dataid=[0x00, 0x00, 0x15]
             unit="%"
     def definition( nm):
-        if nm==1:
+        if nm=="coolant temp":
             dataid=[0x00, 0x00, 0x08]
             unit="℃"
-        elif nm==2:
+        elif nm=="inmani pressure":
             dataid=[0x00, 0x00, 0x0d]
             unit="kPa"
-        elif nm==3:
+        elif nm=="throttle sensor":
             dataid=[0x00, 0x00, 0x15]
             unit="%"
-
-
     def return_data(data):
         if dataid==[0x00, 0x00, 0x08]:
             return data-40
@@ -130,7 +128,7 @@ def comm(sid, data):
         print(receive_msg())
 
 if __name__=="__main__":
-    data1=dataset.definition(1)
-    data2=dataset.definition(2)
+    data1=dataset.definition("coolant temp")
+    data2=dataset.definition("inmani pressure")
     while True:
         comm(0xa8, [data1,data2])
