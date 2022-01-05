@@ -24,13 +24,13 @@ class dataset:
         elif nm=="throttle sensor":
             self.dataid=[0x00, 0x00, 0x15]
             self.unit="%"
-    def calc_data(self,data):
+    def calc_data(self):
         if self.dataid==[0x00, 0x00, 0x08]:
-            return data-40
+            return nowdata-40
         elif self.dataid==[0x00, 0x00, 0x0d]:
-            return data
+            return nowdata
         elif self.dataid==[0x00, 0x00, 0x15]:
-            return data*100/255
+            return nowdata*100/255
     def input_data(self,data):
         self.nowdata=data
         self.last_updated=time.time()
@@ -102,7 +102,7 @@ def receive_data(sid,data):
             if message[3]==datalength+1:
                 for i in range(datalength):
                     data[i].input_data(message[i+5])
-                    print(data[i].item,"=",data[i].calc_data(data[i].nowdata),data[i].unit)
+                    print(data[i].item,"=",data[i].calc_data(),data[i].unit)
                 print(" time:",data[i].last_updated,end="ms ""\n")
             else:
                 print("number of data mismatched.")
