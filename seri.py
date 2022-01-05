@@ -5,7 +5,11 @@ import time
 TIME_OUT=1
 
 class dataset:
+<<<<<<< HEAD
     dataid=[0x00]
+=======
+    dataid=[]
+>>>>>>> 32d8280219e64bbd22772d2f24066a3d444c77a6
     item=""
     unit=""
     nowdata=0x00
@@ -26,11 +30,19 @@ class dataset:
             self.unit="%"
     def calc_data(self):
         if self.dataid==[0x00, 0x00, 0x08]:
+<<<<<<< HEAD
             return self.nowdata-40
         elif self.dataid==[0x00, 0x00, 0x0d]:
             return self.nowdata
         elif self.dataid==[0x00, 0x00, 0x15]:
             return self.nowdata*100/255
+=======
+            return nowdata-40
+        elif self.dataid==[0x00, 0x00, 0x0d]:
+            return nowdata
+        elif self.dataid==[0x00, 0x00, 0x15]:
+            return nowdata*100/255
+>>>>>>> 32d8280219e64bbd22772d2f24066a3d444c77a6
     def input_data(self,data):
         self.nowdata=data
         self.last_updated=time.time()
@@ -112,7 +124,11 @@ def receive_data(sid,data):
         print(message)
 
 ser = serial.Serial(
+<<<<<<< HEAD
     port = "/dev/ttyUSB0",
+=======
+    port = "/dev/ttyUSB*",
+>>>>>>> 32d8280219e64bbd22772d2f24066a3d444c77a6
     baudrate = 4800,
     #parity = serial.PARITY_NONE,
     #bytesize = serial.EIGHTBITS,
@@ -125,7 +141,11 @@ ser = serial.Serial(
 def comm(sid, data):
     if sid==0xa8:
         comp_data=[0x00]
+<<<<<<< HEAD
         for i in range(len(data)):
+=======
+        for i in data:
+>>>>>>> 32d8280219e64bbd22772d2f24066a3d444c77a6
             comp_data=comp_data+data[i].dataid
         send_data([sid]+comp_data)
         receive_data(sid,data)
@@ -135,6 +155,10 @@ def comm(sid, data):
 
 if __name__=="__main__":
     data1=dataset("coolant temp")
+<<<<<<< HEAD
     data2=dataset("throttle sensor")
+=======
+    data2=dataset("inmani pressure")
+>>>>>>> 32d8280219e64bbd22772d2f24066a3d444c77a6
     while True:
         comm(0xa8, [data1,data2])
