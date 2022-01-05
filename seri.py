@@ -103,7 +103,7 @@ def receive_data(sid,data):
                 for i in range(datalength):
                     data[i].input_data(message[i+5])
                     print(data[i].item,"=",data[i].calc_data(),data[i].unit)
-                print("time:",data[i].last_updated,end="ms\n")
+                print("time:",data[i].last_updated,"ms")
             else:
                 print("number of data mismatched.")
         else:
@@ -113,7 +113,6 @@ def receive_data(sid,data):
 
 ser = serial.Serial(
     port = "/dev/ttyUSB0",
-    port = "/dev/ttyUSB*",
     baudrate = 4800,
     #parity = serial.PARITY_NONE,
     #bytesize = serial.EIGHTBITS,
