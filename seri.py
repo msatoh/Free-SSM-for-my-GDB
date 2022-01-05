@@ -49,7 +49,7 @@ def send_msg( buf ):
                 a = struct.pack( "B", b )
                 ser.write(a)
             ser.flush()
-            print("tx: ",buf)
+            #print("tx: ",buf)
             sent=True
             if ser.out_waiting == 0:
                 break
@@ -61,20 +61,17 @@ def send_msg( buf ):
 
 def send_data(data):
     length=len(data)
-    cs=[(128+16+240+length+sum(data))%256]
+    cs=[(384+length+sum(data))%256]#384=128+16+240
     send_msg([0x80, 0x10, 0xf0]+[length]+data+cs)
 
 def receive_msg():
     mes_list=[]
-    begin=time.time()
-    while time.time()-begin < TIME_OUT or len(mes_list)==0:
+    while True:
         rx_data = ser.read()
         a = struct.unpack("B",rx_data)
         mes_list.append(a[0])
         if len(mes_list)==1:
-            if mes_list[0]==128:
-                begin=time.time()
-            else:
+            if mes_list[0]!=128:
                 return "format error."
         elif len(mes_list)==4:
             mes_len=mes_list[3]
@@ -94,8 +91,7 @@ def receive_data(sid,data):
     message=receive_msg()
     if not(message in [
         "format error.",
-        "check sum error.",
-        "timed out."
+        "check sum error."
         ]):
         if message[4]==0xe8:
             datalength=len(data)
