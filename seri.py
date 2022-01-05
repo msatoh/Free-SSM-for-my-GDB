@@ -5,11 +5,7 @@ import time
 TIME_OUT=1
 
 class dataset:
-<<<<<<< HEAD
-    dataid=[0x00]
-=======
     dataid=[]
->>>>>>> 32d8280219e64bbd22772d2f24066a3d444c77a6
     item=""
     unit=""
     nowdata=0x00
@@ -107,7 +103,7 @@ def receive_data(sid,data):
                 for i in range(datalength):
                     data[i].input_data(message[i+5])
                     print(data[i].item,"=",data[i].calc_data(),data[i].unit)
-                print(" time:",data[i].last_updated,end="ms ""\n")
+                print("time:",data[i].last_updated,end="ms\n")
             else:
                 print("number of data mismatched.")
         else:
