@@ -102,8 +102,8 @@ def receive_data(sid,data):
             if message[3]==datalength+1:
                 for i in range(datalength):
                     data[i].input_data(message[i+5])
-                    print(data[i].item,"=",data[i].calc_data(data[i].nowdata),data[i].unit," time:",data[i].last_updated,end="ms ")
-                print("\n")
+                    print(data[i].item,"=",data[i].calc_data(data[i].nowdata),data[i].unit)
+                print(" time:",data[i].last_updated,end="ms ""\n")
             else:
                 print("number of data mismatched.")
         else:
