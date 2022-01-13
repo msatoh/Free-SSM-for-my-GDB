@@ -49,7 +49,7 @@ def send_msg( buf ):
                 a = struct.pack( "B", b )
                 ser.write(a)
             ser.flush()
-            #print("tx: ",buf)
+            print("tx:",buf)
             sent=True
             if ser.out_waiting == 0:
                 break
@@ -108,7 +108,7 @@ def receive_data(sid,data):
         print(message)
 
 ser = serial.Serial(
-    port = "/dev/ttyUSB0",
+    port = "/dev/serial0",
     baudrate = 4800,
     #parity = serial.PARITY_NONE,
     #bytesize = serial.EIGHTBITS,
