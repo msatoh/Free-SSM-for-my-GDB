@@ -22,19 +22,16 @@ def primitives(device, draw):
     # Draw some shapes.
     # First define some constants to allow easy resizing of shapes.
     shape_width = 20
-    # Move left to right keeping track of the current x position for drawing shapes.
-    x = 2
     # Draw an ellipse.
-    draw.ellipse((192, 2, x + 61, 61))#, outline="red", fill="black")
-    x=130
+    draw.ellipse((192, 1, 256, 64), outline="white", fill="black")
+    x=0
     # Draw a rectangle.
-    draw.rectangle((x, 2, x + shape_width, 61), outline="blue", fill="black")
-    x += shape_width + 2
+    draw.rectangle((x, 1, x + shape_width, 64), outline="blue", fill="black")
     # Draw a triangle.
-    draw.polygon([(x, 61), (x + shape_width / 2, 2), (x + shape_width, 61)], outline="green", fill="black")
-    x += shape_width + 2
+    draw.polygon([(190, 1), (190, 63), (64, 63)], outline="white", fill="green")
+    x =30
     # Draw an X.
-    draw.line((x, 61, x + shape_width, 2), fill="yellow")
+    draw.line((x, 61, x + shape_width, 2), fill="red")
     draw.line((x, 2, x + shape_width, 61), fill="yellow")
     x += shape_width + 2
     # Write two lines of text.
