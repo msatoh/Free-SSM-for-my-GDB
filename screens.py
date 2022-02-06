@@ -26,7 +26,7 @@ def primitives(device, draw):
     x = 2
     # Draw an ellipse.
     draw.ellipse((192, 2, x + 61, 61))#, outline="red", fill="black")
-    x -= 62
+    x=130
     # Draw a rectangle.
     draw.rectangle((x, 2, x + shape_width, 61), outline="blue", fill="black")
     x += shape_width + 2
