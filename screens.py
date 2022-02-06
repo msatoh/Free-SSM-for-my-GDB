@@ -15,16 +15,12 @@ import time
 import datetime
 from engine import get_device
 from luma.core.render import canvas
-<<<<<<< HEAD
 from PIL import ImageFont
-=======
->>>>>>> a6596d0122a76a92d6680302df68c5735c52c98b
 
 
 def primitives(device, draw):
     # Draw some shapes.
     # First define some constants to allow easy resizing of shapes.
-<<<<<<< HEAD
     shape_width = 20
     # Move left to right keeping track of the current x position for drawing shapes.
     x = 2
@@ -54,37 +50,6 @@ def main():
     with canvas(device) as draw:
         char_width, char_height = draw.textsize(text=text, font=font)
         draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)#, fill="white")
-=======
-    padding = 2
-    shape_width = 20
-    top = padding
-    bottom = device.height - padding - 1
-    # Move left to right keeping track of the current x position for drawing shapes.
-    x = padding
-    # Draw an ellipse.
-    draw.ellipse((x, top, x + shape_width, bottom), outline="red", fill="black")
-    x += shape_width + padding
-    # Draw a rectangle.
-    draw.rectangle((x, top, x + shape_width, bottom), outline="blue", fill="black")
-    x += shape_width + padding
-    # Draw a triangle.
-    draw.polygon([(x, bottom), (x + shape_width / 2, top), (x + shape_width, bottom)], outline="green", fill="black")
-    x += shape_width + padding
-    # Draw an X.
-    draw.line((x, bottom, x + shape_width, top), fill="yellow")
-    draw.line((x, top, x + shape_width, bottom), fill="yellow")
-    x += shape_width + padding
-    # Write two lines of text.
-    size = draw.textsize('World!')
-    x = device.width - padding - size[0]
-    draw.rectangle((x, top + 4, x + size[0], top + size[1]), fill="black")
-    draw.rectangle((x, top + 16, x + size[0], top + 16 + size[1]), fill="black")
-
-def main():
-    device = get_device()
-    with canvas(device) as draw:
-        draw.text((128,32), "welcome")#, fill="white")
->>>>>>> a6596d0122a76a92d6680302df68c5735c52c98b
     time.sleep(2)
 
     print("Testing basic canvas graphics...")
@@ -92,11 +57,6 @@ def main():
         with canvas(device) as draw:
             primitives(device, draw)
     time.sleep(1.1)
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> a6596d0122a76a92d6680302df68c5735c52c98b
     print("Testing contrast (dim/bright cycles)...")
     for level in range(255, -1, -10):
         device.contrast(level)
@@ -134,8 +94,4 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-<<<<<<< HEAD
         pass
-=======
-        pass
->>>>>>> a6596d0122a76a92d6680302df68c5735c52c98b
