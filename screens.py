@@ -36,7 +36,7 @@ def primitives(device, draw):
     draw.text((69, 59), str("0"),font=disp_font, fill="white")
     draw.text((69, 0), str("21.5"),font=disp_font, fill="white")
     draw.text((74, 59), str("20"),font=disp_font, fill="white")
-    temp_char_width, temp_char_height = draw.textsize(text="110", disp_font)
+    temp_char_width, temp_char_height = draw.textsize(text="110", font=disp_font)
     draw.text((191-temp_char_width, 59), str("110"),font=disp_font, fill="white")
 
 def main():
