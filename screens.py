@@ -29,15 +29,10 @@ def primitives(device, draw):
     # Draw a triangle.
     draw.polygon([(189, 0), (189, 57), (73, 57)], outline="white", fill="green")
     x =30
-    # Draw an X.
-    draw.line((x, 61, x + shape_width, 2), fill="red")
-    draw.line((x, 2, x + shape_width, 61), fill="yellow")
-    x += shape_width + 2
-    # Write two lines of text.
-    size = draw.textsize('World!')
-    x = 254 - size[0]
-    draw.rectangle((x, 6, x + size[0], 2 + size[1]), fill="black")
-    draw.rectangle((x, 18, x + size[0], 18 + size[1]), fill="black")
+    # Draw a line.
+    draw.line((x, 2, x + shape_width, 61), fill="white")
+    # Write a digit
+    draw.text((69, 59), str("0"), fill="white")
 
 def main():
     device = get_device()
