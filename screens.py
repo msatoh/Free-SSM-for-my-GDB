@@ -16,6 +16,7 @@ import datetime
 from engine import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
+import math
 
 
 def primitives(device, draw):
@@ -23,21 +24,24 @@ def primitives(device, draw):
     # First define some constants to allow easy resizing of shapes.
     shape_width = 20
     # Draw an ellipse.
-    draw.ellipse((191, 0, 255, 63), outline="white", fill="black")
+    draw.ellipse((192, 0, 255, 63), outline="white", fill="black")
     # Draw a rectangle.
     draw.rectangle((0, -1, 67, 63), outline="white", fill="black")
     # Draw a triangle.
-    draw.polygon([(189, 0), (189, 57), (74, 57)], outline="white", fill="green")
+    draw.polygon([(190, 0), (190, 57), (75, 57)], outline="white", fill="green")
     x =30
     # Draw a line.
-    draw.line((x, 2, x + shape_width, 61), fill="white")
+    angle=0
+    tip_x=int(29*math.cos(math.radians(90+angle))+224)
+    tip_y=int(29*math.sin(math.radians(90+angle))+32)
+    draw.line((224, 32, tip_x, tip_y), fill="white")
     # Write digits
     disp_font=ImageFont.truetype("SNchibi2_5.TTF", 5)
-    draw.text((69, 59), str("0"),font=disp_font, fill="white")
-    draw.text((69, 0), str("21.5"),font=disp_font, fill="white")
-    draw.text((74, 59), str("20"),font=disp_font, fill="white")
+    draw.text((70, 59), str("0"),font=disp_font, fill="white")
+    draw.text((70, 0), str("21.5"),font=disp_font, fill="white")
+    draw.text((75, 59), str("20"),font=disp_font, fill="white")
     temp_char_width, temp_char_height = draw.textsize(text="110", font=disp_font)
-    draw.text((191-temp_char_width, 59), str("110"),font=disp_font, fill="white")
+    draw.text((192-temp_char_width, 59), str("110"),font=disp_font, fill="white")
 
 def main():
     device = get_device()
