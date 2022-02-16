@@ -27,12 +27,17 @@ def primitives(device, draw):
     # Draw a rectangle.
     draw.rectangle((0, -1, 67, 63), outline="white", fill="black")
     # Draw a triangle.
-    draw.polygon([(189, 0), (189, 57), (73, 57)], outline="white", fill="green")
+    draw.polygon([(189, 0), (189, 57), (74, 57)], outline="white", fill="green")
     x =30
     # Draw a line.
     draw.line((x, 2, x + shape_width, 61), fill="white")
-    # Write a digit
-    draw.text((69, 59), str("0"), fill="white")
+    # Write digits
+    disp_font=ImageFont.truetype("SNchibi2_5.TTF", 5)
+    draw.text((69, 59), str("0"),font=disp_font, fill="white")
+    draw.text((69, 0), str("21.5"),font=disp_font, fill="white")
+    draw.text((74, 59), str("20"),font=disp_font, fill="white")
+    temp_char_width, temp_char_height = draw.textsize(text="110", disp_font)
+    draw.text((191-temp_char_width, 59), str("110"),font=disp_font, fill="white")
 
 def main():
     device = get_device()
