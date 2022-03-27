@@ -20,28 +20,45 @@ import math
 
 
 def primitives(device, draw):
-    # Draw some shapes.
-    # First define some constants to allow easy resizing of shapes.
-    shape_width = 20
+    # turbo gauge
     # Draw an ellipse.
     draw.ellipse((192, 0, 255, 63), outline="white", fill="black")
-    # Draw a rectangle.
-    draw.rectangle((0, -1, 67, 63), outline="white", fill="black")
-    # Draw a triangle.
-    draw.polygon([(190, 0), (190, 57), (75, 57)], outline="white", fill="green")
-    x =30
     # Draw a line.
-    angle=0
+    BOOST=0.7
+    angle=BOOST*180
     tip_x=int(29*math.cos(math.radians(90+angle))+224)
     tip_y=int(29*math.sin(math.radians(90+angle))+32)
     draw.line((224, 32, tip_x, tip_y), fill="white")
     # Write digits
-    disp_font=ImageFont.truetype("SNchibi2_5.TTF", 5)
-    draw.text((70, 59), str("0"),font=disp_font, fill="white")
-    draw.text((70, 0), str("21.5"),font=disp_font, fill="white")
-    draw.text((75, 59), str("20"),font=disp_font, fill="white")
-    temp_char_width, temp_char_height = draw.textsize(text="110", font=disp_font)
-    draw.text((192-temp_char_width, 59), str("110"),font=disp_font, fill="white")
+    digit_font=ImageFont.truetype("SNchibi2_5.TTF", 5)
+    BOOST_char_width, BOOST_char_height = draw.textsize(text="BOOST", font=digit_font)
+    O_char_width, O_char_height = draw.textsize(text="0", font=digit_font)
+    one_char_width, one_char_height = draw.textsize(text="1", font=digit_font)
+    two_char_width, two_char_height = draw.textsize(text="1.5", font=digit_font)
+    draw.text((224-BOOST_char_width/2, 16), str("BOOST"),font=digit_font, fill="white")
+    draw.text((194, 32), str("0.5"),font=digit_font, fill="white")
+    draw.text((225-O_char_width/2, 62-O_char_height), str("0"),font=digit_font, fill="white")
+    draw.text((255-two_char_width, 32), str("1.5"),font=digit_font, fill="white")
+    draw.text((225-one_char_width/2, 2), str("1"),font=digit_font, fill="white")
+    # fuel inj
+    # Draw a rectangle.
+    draw.rectangle((0, -1, 68, 63), outline="white", fill="black")
+    draw.text((70, 59), str("0"),font=digit_font)
+    draw.text((70, 0), str("21.5"),font=digit_font)
+    draw.text((70, 6), str("MAX"),font=digit_font)
+    draw.text((86, 0), str("inj."),font=digit_font)
+    draw.text((96, -6), str("21.5"),font=ImageFont.truetype("DejaVuSans.ttf",26))
+    # temp
+    # Draw a triangle.
+    temp=96
+    draw.polygon([(75+23*(temp-20)/18, (110-temp)*57/90), (75+23*(temp-20)/18, 57), (75, 57)], outline="green", fill="green")
+    draw.polygon([(190, 0), (190, 57), (75, 57)], outline="white")
+    draw.text((121, 59), str("60"),font=digit_font, fill="white")
+    draw.text((181, 59), str("120"),font=digit_font, fill="white")
+    temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
+    draw.text((190-temp_char_width,35-temp_char_height),str("temp"),font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
+    digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=ImageFont.truetype("DejaVuSans.ttf",28))
+    draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=ImageFont.truetype("DejaVuSans.ttf",28))
 
 def main():
     device = get_device()
