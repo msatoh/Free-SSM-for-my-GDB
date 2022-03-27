@@ -47,13 +47,13 @@ def primitives(device, draw):
     draw.text((70, 0), str("21.5"),font=digit_font)
     draw.text((70, 6), str("MAX"),font=digit_font)
     draw.text((86, 0), str("inj."),font=digit_font)
-    draw.text((96, -6), str("21.5"),font=ImageFont.truetype("DejaVuSans.ttf",26))
+    draw.text((96, -4), str("21.5"),font=ImageFont.truetype("DejaVuSans.ttf",20))
     # temp
     # Draw a triangle.
     temp=96
-    draw.polygon([(75+23*(temp-20)/18, (110-temp)*57/90), (75+23*(temp-20)/18, 57), (75, 57)], outline="green", fill="green")
-    draw.polygon([(190, 0), (190, 57), (75, 57)], outline="white")
-    draw.text((121, 59), str("60"),font=digit_font, fill="white")
+    draw.polygon([(60+temp, 1+(120-temp)/3), (60+temp, 57), (120, 57),(120,20)], outline="green", fill="green")
+    draw.polygon([(190, 0), (190, 57), (120, 57),(120,20)], outline="white")
+    draw.text((120, 59), str("60"),font=digit_font, fill="white")
     draw.text((181, 59), str("120"),font=digit_font, fill="white")
     temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
     draw.text((190-temp_char_width,35-temp_char_height),str("temp"),font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
