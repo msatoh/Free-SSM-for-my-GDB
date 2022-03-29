@@ -13,6 +13,7 @@ https://github.com/adafruit/Adafruit_Python_SSD1306/blob/master/examples/shapes.
 
 import time
 import datetime
+from tkinter import Image
 from engine import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
@@ -20,6 +21,8 @@ import math
 
 
 def primitives(device, draw):
+    draw.text((47, -1), "Multi")
+    draw.text((47,7),"Gauge")
     # turbo gauge
     # Draw an ellipse.
     draw.ellipse((192, 0, 255, 63), outline="white", fill="black")
@@ -44,18 +47,21 @@ def primitives(device, draw):
     # Draw a rectangle.
     MAX_inj=21.5
     current_inj=8.6
-    MAX_digit_width, MAX_digit_height = draw.textsize(text="temp", font=ImageFont.truetype("DejaVuSans.ttf",18))
-    draw.text((96-MAX_digit_width, 0), str(MAX_inj),font=ImageFont.truetype("DejaVuSans.ttf",18))
+    num_font=ImageFont.truetype("DejaVuSans.ttf",19)
     current_char_width, current_char_height = draw.textsize(text="temp", font=digit_font)
     current_digit_width, current_digit_height = draw.textsize(text=str(current_inj), font=ImageFont.truetype("DejaVuSans.ttf",27))
     draw.text((5, 59), str("current"),font=digit_font)
     draw.text((current_char_width+11,63-current_digit_height),str(current_inj),font=ImageFont.truetype("DejaVuSans.ttf",27))
-    draw.text((30, 63-current_digit_height), str("MAX inj."),font=digit_font)
+    draw.text((47, 21), str("MAX inj."),font=digit_font)
+    MAX_digit_width, MAX_digit_height = draw.textsize(text="temp", font=num_font)
+    draw.text((96-MAX_digit_width, 24), str(MAX_inj),font=num_font)
     #deg
     deg=22
+    inj_depth=int(255*current_inj/MAX_inj)
     draw.text((25, 0), str("deg"),font=digit_font)
-    draw.pieslice((-64,0)+(64,128), 270, 270+deg, fill="green")
+    draw.pieslice((-64,0)+(64,128), 270, 270+deg, fill=(inj_depth,inj_depth,inj_depth))
     draw.pieslice((-64,0)+(64,128), 270, 315, outline="white")
+
     # temp
     # Draw a triangle.
     temp=96
@@ -65,8 +71,8 @@ def primitives(device, draw):
     draw.text((185, 59), str("120"),font=digit_font, fill="white")
     temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)
     draw.text((190-temp_char_width,41-temp_char_height),"temp",font=digit_font)
-    digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=ImageFont.truetype("DejaVuSans.ttf",19))
-    draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=ImageFont.truetype("DejaVuSans.ttf",19))
+    digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=num_font)
+    draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=num_font)
     draw.rectangle((88, -1, 128, 63), outline="white", fill="black")
     draw.text((130,0),str("log"),font=digit_font)
 
@@ -77,13 +83,14 @@ def main():
     with canvas(device) as draw:
         char_width, char_height = draw.textsize(text=text, font=font)
         draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)#, fill="white")
-    time.sleep(2)
+    time.sleep(1)
 
     print("Testing basic canvas graphics...")
-    for _ in range(2):
-        with canvas(device) as draw:
-            primitives(device, draw)
-    time.sleep(1.1)
+    #for _ in range(2):
+    with canvas(device) as draw:
+        primitives(device, draw)
+    time.sleep(2.1)
+
     print("Testing contrast (dim/bright cycles)...")
     for level in range(255, -1, -10):
         device.contrast(level)
@@ -97,18 +104,18 @@ def main():
     time.sleep(1)
 
     print("Testing display ON/OFF...")
-    time.sleep(0.5)
+    time.sleep(0.4)
     device.hide()
 
-    time.sleep(0.5)
+    time.sleep(0.4)
     device.show()
 
     print("Testing clear display...")
-    time.sleep(2)
+    time.sleep(1)
     device.clear()
 
     print("Testing screen updates...")
-    time.sleep(2)
+    time.sleep(0.8)
     for x in range(40):
         with canvas(device) as draw:
             now = datetime.datetime.now()

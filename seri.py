@@ -24,6 +24,15 @@ class dataset:
         elif nm=="throttle sensor":
             self.dataid=[0x00, 0x00, 0x15]
             self.unit="%"
+        elif nm=="fuel injection":
+            self.dataid=[0x00,0x00,0x3B]
+            self.unit="%"
+        elif nm=="cam angle":
+            self.dataid=[0x00,0x00,0x28]
+            self.unit="°"
+        elif nm=="inmani temp":
+            self.dataid=[0x00,0x00,0x12]
+            self.unit="℃"
     def calc_data(self):
         if self.dataid==[0x00, 0x00, 0x08]:
             return self.nowdata-40
@@ -31,6 +40,12 @@ class dataset:
             return self.nowdata
         elif self.dataid==[0x00, 0x00, 0x15]:
             return self.nowdata*100/255
+        elif self.dataid==[0x00,0x00,0x3B]:
+            return self.nowdata*100/255
+        elif self.dataid==[0x00,0x00,0x28]:
+            return (self.nowdata-128)/2
+        elif self.dataid==[0x00,0x00,0x12]:
+            return self.nowdata-40
     def input_data(self,data):
         self.nowdata=data
         self.last_updated=time.time()
