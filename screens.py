@@ -30,7 +30,7 @@ def primitives(device, draw):
     tip_y=int(29*math.sin(math.radians(90+angle))+32)
     draw.line((224, 32, tip_x, tip_y), fill="white")
     # Write digits
-    digit_font=ImageFont.truetype("SNchibi2_5.TTF", 5)
+    digit_font=ImageFont.truetype("digit.ttf",7)#("SNchibi2_5.TTF", 5)
     BOOST_char_width, BOOST_char_height = draw.textsize(text="BOOST", font=digit_font)
     O_char_width, O_char_height = draw.textsize(text="0", font=digit_font)
     one_char_width, one_char_height = draw.textsize(text="1", font=digit_font)
@@ -39,22 +39,21 @@ def primitives(device, draw):
     draw.text((194, 32), str("0.5"),font=digit_font, fill="white")
     draw.text((225-O_char_width/2, 62-O_char_height), str("0"),font=digit_font, fill="white")
     draw.text((255-two_char_width, 32), str("1.5"),font=digit_font, fill="white")
-    draw.text((225-one_char_width/2, 2), str("1"),font=digit_font, fill="white")
+    draw.text((225-one_char_width/2, 3), str("1"),font=digit_font, fill="white")
     # fuel inj
     # Draw a rectangle.
-    draw.rectangle((0, -1, 68, 63), outline="white", fill="black")
-    draw.text((70, 59), str("0"),font=digit_font)
-    draw.text((70, 0), str("21.5"),font=digit_font)
-    draw.text((70, 6), str("MAX"),font=digit_font)
-    draw.text((86, 0), str("inj."),font=digit_font)
-    draw.text((96, -4), str("21.5"),font=ImageFont.truetype("DejaVuSans.ttf",20))
+    draw.rectangle((0, -1, 45, 63), outline="white", fill="black")
+    draw.text((47, 59), str("0"),font=digit_font)
+    draw.text((47, 0), str("21.5"),font=digit_font)
+    draw.text((47, 7), str("MAX"),font=digit_font)
+    draw.text((47, 14), str("inj."),font=digit_font)
     # temp
     # Draw a triangle.
     temp=96
     draw.polygon([(60+temp, 1+(120-temp)/3), (60+temp, 57), (120, 57),(120,20)], outline="green", fill="green")
     draw.polygon([(190, 0), (190, 57), (120, 57),(120,20)], outline="white")
     draw.text((120, 59), str("60"),font=digit_font, fill="white")
-    draw.text((181, 59), str("120"),font=digit_font, fill="white")
+    draw.text((185, 59), str("120"),font=digit_font, fill="white")
     temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
     draw.text((190-temp_char_width,35-temp_char_height),str("temp"),font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
     digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=ImageFont.truetype("DejaVuSans.ttf",28))
