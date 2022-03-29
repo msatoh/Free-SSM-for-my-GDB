@@ -30,7 +30,7 @@ def primitives(device, draw):
     tip_y=int(29*math.sin(math.radians(90+angle))+32)
     draw.line((224, 32, tip_x, tip_y), fill="white")
     # Write digits
-    digit_font=ImageFont.truetype("digit.ttf",7)#("SNchibi2_5.TTF", 5)
+    digit_font=ImageFont.truetype("digit.ttf",7)
     BOOST_char_width, BOOST_char_height = draw.textsize(text="BOOST", font=digit_font)
     O_char_width, O_char_height = draw.textsize(text="0", font=digit_font)
     one_char_width, one_char_height = draw.textsize(text="1", font=digit_font)
@@ -42,22 +42,33 @@ def primitives(device, draw):
     draw.text((225-one_char_width/2, 3), str("1"),font=digit_font, fill="white")
     # fuel inj
     # Draw a rectangle.
-    draw.rectangle((0, -1, 45, 63), outline="white", fill="black")
-    draw.text((47, 59), str("0"),font=digit_font)
-    draw.text((47, 0), str("21.5"),font=digit_font)
-    draw.text((47, 7), str("MAX"),font=digit_font)
-    draw.text((47, 14), str("inj."),font=digit_font)
+    MAX_inj=21.5
+    current_inj=8.6
+    MAX_digit_width, MAX_digit_height = draw.textsize(text="temp", font=ImageFont.truetype("DejaVuSans.ttf",18))
+    draw.text((96-MAX_digit_width, 0), str(MAX_inj),font=ImageFont.truetype("DejaVuSans.ttf",18))
+    current_char_width, current_char_height = draw.textsize(text="temp", font=digit_font)
+    current_digit_width, current_digit_height = draw.textsize(text=str(current_inj), font=ImageFont.truetype("DejaVuSans.ttf",27))
+    draw.text((5, 59), str("current"),font=digit_font)
+    draw.text((current_char_width+11,63-current_digit_height),str(current_inj),font=ImageFont.truetype("DejaVuSans.ttf",27))
+    draw.text((30, 63-current_digit_height), str("MAX inj."),font=digit_font)
+    #deg
+    deg=22
+    draw.text((25, 0), str("deg"),font=digit_font)
+    draw.pieslice((-64,0)+(64,128), 270, 270+deg, fill="green")
+    draw.pieslice((-64,0)+(64,128), 270, 315, outline="white")
     # temp
     # Draw a triangle.
     temp=96
-    draw.polygon([(60+temp, 1+(120-temp)/3), (60+temp, 57), (120, 57),(120,20)], outline="green", fill="green")
-    draw.polygon([(190, 0), (190, 57), (120, 57),(120,20)], outline="white")
-    draw.text((120, 59), str("60"),font=digit_font, fill="white")
+    draw.polygon([(70+temp, (120-temp)/3), (70+temp, 57), (130, 57),(130,20)], outline="green", fill="green")
+    draw.polygon([(190, 0), (190, 57), (130, 57),(130,20)], outline="white")
+    draw.text((130, 59), str("60"),font=digit_font, fill="white")
     draw.text((185, 59), str("120"),font=digit_font, fill="white")
-    temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
-    draw.text((190-temp_char_width,35-temp_char_height),str("temp"),font=digit_font)#ImageFont.truetype("C&C Red Alert [INET].ttf",13))
-    digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=ImageFont.truetype("DejaVuSans.ttf",28))
-    draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=ImageFont.truetype("DejaVuSans.ttf",28))
+    temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)
+    draw.text((190-temp_char_width,41-temp_char_height),"temp",font=digit_font)
+    digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=ImageFont.truetype("DejaVuSans.ttf",19))
+    draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=ImageFont.truetype("DejaVuSans.ttf",19))
+    draw.rectangle((88, -1, 128, 63), outline="white", fill="black")
+    draw.text((130,0),str("log"),font=digit_font)
 
 def main():
     device = get_device()
