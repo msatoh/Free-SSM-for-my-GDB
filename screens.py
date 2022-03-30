@@ -24,27 +24,24 @@ import statistics
 MAX_inj=0
 temp_history=collections.deque([],78)
 
-def primitives(device, draw,BOOST,temp,current_inj,deg):
+def primitives(draw,BOOST,temp,current_inj,deg):
     global MAX_inj
     draw.text((47, -1), "Multi")
     draw.text((47,7),"Gauge")
     digit_font=ImageFont.truetype("digit.ttf",7)
     num_font=ImageFont.truetype("DejaVuSans.ttf",19)
     # turbo gauge
-    draw.ellipse((192, 0, 255, 63), outline="white", fill="black")
+    draw.ellipse((192, 0, 255, 63))
     angle=BOOST*180
     tip_x=int(29*math.cos(math.radians(90+angle))+224)
     tip_y=int(29*math.sin(math.radians(90+angle))+32)
-    draw.line((224, 32, tip_x, tip_y), fill="white")
+    draw.line((224, 32, tip_x, tip_y))
     BOOST_char_width, BOOST_char_height = draw.textsize(text="BOOST", font=digit_font)
-    O_char_width, O_char_height = draw.textsize(text="0", font=digit_font)
-    one_char_width, one_char_height = draw.textsize(text="1", font=digit_font)
-    two_char_width, two_char_height = draw.textsize(text="1.5", font=digit_font)
-    draw.text((224-BOOST_char_width/2, 16), str("BOOST"),font=digit_font, fill="white")
-    draw.text((194, 32), str("0.5"),font=digit_font, fill="white")
-    draw.text((225-O_char_width/2, 62-O_char_height), str("0"),font=digit_font, fill="white")
-    draw.text((255-two_char_width, 32), str("1.5"),font=digit_font, fill="white")
-    draw.text((225-one_char_width/2, 3), str("1"),font=digit_font, fill="white")
+    draw.text((224-BOOST_char_width/2, 16), str("BOOST"),font=digit_font)
+    draw.text((194, 32), str("0.5"),font=digit_font)
+    draw.text((222, 57), str("0"),font=digit_font)
+    draw.text((245, 32), str("1.5"),font=digit_font)
+    draw.text((222, 3), str("1"),font=digit_font)
     # fuel inj
     # Draw a rectangle.
     if MAX_inj<current_inj:
@@ -60,7 +57,7 @@ def primitives(device, draw,BOOST,temp,current_inj,deg):
     inj_depth=int(255*current_inj/MAX_inj)
     draw.text((25, 0), str("deg"),font=digit_font)
     draw.pieslice((-64,0)+(64,128), 270, 270+deg, fill=(inj_depth,inj_depth,inj_depth))
-    draw.pieslice((-64,0)+(64,128), 270, 315, outline="white")
+    draw.pieslice((-64,0)+(64,128), 270, 315)
 
     # temp
     # Draw a triangle.
@@ -68,18 +65,18 @@ def primitives(device, draw,BOOST,temp,current_inj,deg):
     temp_history.appendleft(temp)
     if temp>60:
         draw.polygon([(70+temp, (120-temp)/3), (70+temp, 57), (130, 57),(130,20)], outline="green", fill="green")
-    draw.polygon([(190, 0), (190, 57), (130, 57),(130,20)], outline="white")
-    draw.text((130, 59), str("60"),font=digit_font, fill="white")
-    draw.text((185, 59), str("120"),font=digit_font, fill="white")
+    draw.polygon([(190, 0), (190, 57), (130, 57),(130,20)])
+    draw.text((130, 59), str("60"),font=digit_font)
+    draw.text((185, 59), str("120"),font=digit_font)
     temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)
     draw.text((190-temp_char_width,41-temp_char_height),"temp",font=digit_font)
     digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=num_font)
     draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=num_font)
-    draw.rectangle((88, -1, 128, 63), outline="white", fill="black")
+    draw.rectangle((88, -1, 128, 63))
     draw.text((130,0),str("log"),font=digit_font)
     i=1
     for j in temp_history:
-        draw.point((128-(i/2),120-j),"white")
+        draw.point((128-(i/2),120-j))
         i+=1
 
 def sc(device):
@@ -94,13 +91,13 @@ def sc(device):
             in_temp.append(random.randint(0,120))
             in_inj.append(random.uniform(0,21.5))
             in_deg.append(random.randint(0,45))
-            primitives(device, draw,
+            primitives(draw,
                 statistics.mean(in_boost),
                 int(statistics.mean(in_temp)),
                 statistics.mean(in_inj),
                 int(statistics.mean(in_deg))
                 )
-            time.sleep(0.01)
+            #time.sleep(0.01)
 
 def main():
     device = get_device()
@@ -108,7 +105,7 @@ def main():
     text="welcome"
     with canvas(device) as draw:
         char_width, char_height = draw.textsize(text=text, font=font)
-        draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)#, fill="white")
+        draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)
     time.sleep(1)
 
     sc(device)
@@ -116,7 +113,7 @@ def main():
     print("Testing contrast (dim/bright cycles)...")
     for level in range(0, 255, 5):
         device.contrast(level)
-        time.sleep(0.1)
+        time.sleep(0.01)
 
     print("Testing display ON/OFF...")
     time.sleep(0.4)
