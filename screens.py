@@ -47,7 +47,7 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     draw.text((5, 59), str("current"),font=digit_font)
     draw.text((29,38),str('{:.1f}'.format(current_inj)),font=ImageFont.truetype("DejaVuSans.ttf",27))
     draw.text((47, 21), str("MAX inj."),font=digit_font)
-    draw.text((45, 24), str('{:.1f}'.format(MAX_inj)),font=num_font)
+    draw.text((46, 24), str('{:.1f}'.format(MAX_inj)),font=num_font)
     #deg
     inj_depth=int(255*current_inj/MAX_inj)
     draw.text((25, 0), str("deg"),font=digit_font)
@@ -63,7 +63,8 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     draw.text((130, 59), str("60"),font=digit_font)
     draw.text((185, 59), str("120"),font=digit_font)
     draw.text((172,34),"temp",font=digit_font)
-    draw.text((145,38),str(temp)+"℃",font=num_font)
+    temp_width, temp_height = draw.textsize(text=str(temp)+"°C", font=num_font)
+    draw.text((190-temp_width,38),str(temp)+"°C",font=num_font)
     draw.rectangle((88, -1, 128, 63))
     draw.text((130,0),str("log"),font=digit_font)
     i=1
@@ -74,13 +75,18 @@ def primitives(draw,BOOST,temp,current_inj,deg):
 def sc(device):
     print("Testing basic canvas graphics...")
     in_boost=collections.deque([],3)
-    in_temp=collections.deque([],3)
-    in_inj=collections.deque([],3)
-    in_deg=collections.deque([],3)
+    in_temp=collections.deque([],10)
+    in_inj=collections.deque([],1)
+    in_deg=collections.deque([],5)
     for _ in range(100):
         with canvas(device) as draw:
             in_boost.append(random.uniform(0,2))
-            in_temp.append(random.randint(0,120))
+            in_temp.append(random.randint(0,20)
+            +random.randint(0,20)
+            +random.randint(0,20)
+            +random.randint(0,20)
+            +random.randint(0,20)
+            +random.randint(0,20))
             in_inj.append(random.uniform(0,21.5))
             in_deg.append(random.randint(0,45))
             primitives(draw,
