@@ -72,66 +72,40 @@ def primitives(draw,BOOST,temp,current_inj,deg):
         draw.point((128-(i/2),120-j))
         i+=1
 
-def sc(device):
-    print("Testing basic canvas graphics...")
-    in_boost=collections.deque([],3)
-    in_temp=collections.deque([],10)
-    in_inj=collections.deque([],1)
-    in_deg=collections.deque([],5)
-    for _ in range(100):
-        with canvas(device) as draw:
-            in_boost.append(random.uniform(0,2))
-            in_temp.append(random.randint(0,20)
-            +random.randint(0,20)
-            +random.randint(0,20)
-            +random.randint(0,20)
-            +random.randint(0,20)
-            +random.randint(0,20))
-            in_inj.append(random.uniform(0,21.5))
-            in_deg.append(random.randint(0,45))
-            primitives(draw,
-                statistics.mean(in_boost),
-                int(statistics.mean(in_temp)),
-                statistics.mean(in_inj),
-                int(statistics.mean(in_deg))
-                )
-            #time.sleep(0.01)
-
-def main():
+def scr_main(in_boost,in_temp,in_inj,in_deg):
     device = get_device()
-    font = ImageFont.truetype("BRZimpFont.ttf", 27)
-    text="welcome"
+    # font = ImageFont.truetype("BRZimpFont.ttf", 27)
+    # text="welcome"
+    # with canvas(device) as draw:
+    #     char_width, char_height = draw.textsize(text=text, font=font)
+    #     draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)
+    # time.sleep(1)
     with canvas(device) as draw:
-        char_width, char_height = draw.textsize(text=text, font=font)
-        draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)
-    time.sleep(1)
-
-    sc(device)
-
-    print("Testing contrast (dim/bright cycles)...")
-    for level in range(0, 255, 5):
-        device.contrast(level)
-        time.sleep(0.01)
-
-    print("Testing display ON/OFF...")
-    time.sleep(0.4)
-    device.hide()
-    time.sleep(0.4)
-    device.show()
-    time.sleep(0.2)
-    device.clear()
-
-    print("Testing screen updates...")
-    for x in range(200):
-        with canvas(device) as draw:
-            now = datetime.datetime.now()
-            draw.text((x, 4), str(now.date()), fill="white")
-            draw.text((10, 16), str(now.time()), fill="white")
-            time.sleep(0.01)
-
+        primitives(draw,in_boost,in_temp,in_inj,in_deg)
 
 if __name__ == "__main__":
     try:
-        main()
+        device=get_device()
+        in_boost=collections.deque([],3)
+        in_temp=collections.deque([],10)
+        in_inj=collections.deque([],1)
+        in_deg=collections.deque([],5)
+        for _ in range(100):
+            with canvas(device) as draw:
+                in_boost.append(random.uniform(0,2))
+                in_temp.append(random.randint(0,20)
+                +random.randint(0,20)
+                +random.randint(0,20)
+                +random.randint(0,20)
+                +random.randint(0,20)
+                +random.randint(0,20))
+                in_inj.append(random.uniform(0,21.5))
+                in_deg.append(random.randint(0,45))
+                primitives(draw,
+                    statistics.mean(in_boost),
+                    int(statistics.mean(in_temp)),
+                    statistics.mean(in_inj),
+                    int(statistics.mean(in_deg))
+                    )
     except KeyboardInterrupt:
         pass

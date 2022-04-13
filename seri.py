@@ -140,7 +140,7 @@ def comm(sid, data):
         for i in range(len(data)):
             comp_data=comp_data+data[i].dataid
         send_data([sid]+comp_data)
-        receive_data(sid,data)
+        return receive_data(sid,data)
     else:
         send_data(data)
         print(receive_msg())
