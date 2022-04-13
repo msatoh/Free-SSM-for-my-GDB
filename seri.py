@@ -115,6 +115,7 @@ def receive_data(sid,data):
                     data[i].input_data(message[i+5])
                     print(data[i].item,"=",data[i].calc_data(),data[i].unit)
                 print("time:",data[i].last_updated,"ms")
+                return data
             else:
                 print("number of data mismatched.")
         else:
