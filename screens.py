@@ -33,26 +33,21 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     # turbo gauge
     draw.ellipse((192, 0, 255, 63))
     angle=BOOST*180
-    tip_x=int(29*math.cos(math.radians(90+angle))+224)
-    tip_y=int(29*math.sin(math.radians(90+angle))+32)
+    tip_x=int(-29*math.sin(math.radians(angle))+224)
+    tip_y=int(29*math.cos(math.radians(angle))+32)
     draw.line((224, 32, tip_x, tip_y))
-    BOOST_char_width, BOOST_char_height = draw.textsize(text="BOOST", font=digit_font)
-    draw.text((224-BOOST_char_width/2, 16), str("BOOST"),font=digit_font)
+    draw.text((213, 16), str("BOOST"),font=digit_font)
     draw.text((194, 32), str("0.5"),font=digit_font)
     draw.text((222, 57), str("0"),font=digit_font)
     draw.text((245, 32), str("1.5"),font=digit_font)
     draw.text((222, 3), str("1"),font=digit_font)
     # fuel inj
-    # Draw a rectangle.
     if MAX_inj<current_inj:
         MAX_inj=current_inj
-    current_char_width, current_char_height = draw.textsize(text="temp", font=digit_font)
-    current_digit_width, current_digit_height = draw.textsize(text=str(current_inj), font=ImageFont.truetype("DejaVuSans.ttf",27))
     draw.text((5, 59), str("current"),font=digit_font)
-    draw.text((current_char_width+11,63-current_digit_height),str('{:.1f}'.format(current_inj)),font=ImageFont.truetype("DejaVuSans.ttf",27))
+    draw.text((29,38),str('{:.1f}'.format(current_inj)),font=ImageFont.truetype("DejaVuSans.ttf",27))
     draw.text((47, 21), str("MAX inj."),font=digit_font)
-    MAX_digit_width, MAX_digit_height = draw.textsize(text="temp", font=num_font)
-    draw.text((96-MAX_digit_width, 24), str('{:.1f}'.format(MAX_inj)),font=num_font)
+    draw.text((45, 24), str('{:.1f}'.format(MAX_inj)),font=num_font)
     #deg
     inj_depth=int(255*current_inj/MAX_inj)
     draw.text((25, 0), str("deg"),font=digit_font)
@@ -60,7 +55,6 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     draw.pieslice((-64,0)+(64,128), 270, 315)
 
     # temp
-    # Draw a triangle.
     global temp_history
     temp_history.appendleft(temp)
     if temp>60:
@@ -68,10 +62,8 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     draw.polygon([(190, 0), (190, 57), (130, 57),(130,20)])
     draw.text((130, 59), str("60"),font=digit_font)
     draw.text((185, 59), str("120"),font=digit_font)
-    temp_char_width, temp_char_height = draw.textsize(text="temp", font=digit_font)
-    draw.text((190-temp_char_width,41-temp_char_height),"temp",font=digit_font)
-    digit_char_width, digit_char_height = draw.textsize(text=str(temp)+"℃", font=num_font)
-    draw.text((190-digit_char_width,56-digit_char_height),str(temp)+"℃",font=num_font)
+    draw.text((172,34),"temp",font=digit_font)
+    draw.text((145,38),str(temp)+"℃",font=num_font)
     draw.rectangle((88, -1, 128, 63))
     draw.text((130,0),str("log"),font=digit_font)
     i=1
