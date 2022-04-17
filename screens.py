@@ -11,8 +11,6 @@ Ported from:
 https://github.com/adafruit/Adafruit_Python_SSD1306/blob/master/examples/shapes.py
 """
 
-import time
-import datetime
 from engine import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
