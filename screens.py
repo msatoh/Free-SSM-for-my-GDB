@@ -22,6 +22,7 @@ from seri import dataset
 
 MAX_inj=0.1
 temp_history=collections.deque([],78)
+boost_history=collections.deque([],16)
 
 def primitives(draw,BOOST,temp,current_inj,deg):
     global MAX_inj
@@ -29,12 +30,23 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     draw.text((47,7),"Gauge")
     digit_font=ImageFont.truetype("digit.ttf",7)
     num_font=ImageFont.truetype("DejaVuSans.ttf",19)
+    #deg
+    inj_depth=int(255*current_inj/MAX_inj)
+    draw.text((25, 0), str("deg"),font=digit_font)
+    draw.pieslice((-64,0)+(64,128), 270, 270+deg, fill=(inj_depth,inj_depth,inj_depth))
+    draw.pieslice((-64,0)+(64,128), 270, 315)
+
     # turbo gauge
     draw.ellipse((192, 0, 255, 63))
-    angle=BOOST*180
-    tip_x=int(-29*math.sin(math.radians(angle))+224)
-    tip_y=int(29*math.cos(math.radians(angle))+32)
-    draw.line((224, 32, tip_x, tip_y))
+    boost_history.appendleft(BOOST)
+    j=0
+    for i in boost_history:
+        angle=(i-101.3)*180/101.3
+        tip_x=int(-29*math.sin(math.radians(angle))+224)
+        tip_y=int(29*math.cos(math.radians(angle))+32)
+        depth=255-int(j*17)
+        draw.line((224, 32, tip_x, tip_y),fill=(depth,depth,depth))
+        j+=1
     draw.text((213, 16), str("BOOST"),font=digit_font)
     draw.text((194, 32), str("0.5"),font=digit_font)
     draw.text((222, 57), str("0"),font=digit_font)
@@ -47,11 +59,6 @@ def primitives(draw,BOOST,temp,current_inj,deg):
     draw.text((29,38),str('{:.1f}'.format(current_inj)),font=ImageFont.truetype("DejaVuSans.ttf",27))
     draw.text((47, 21), str("MAX inj."),font=digit_font)
     draw.text((46, 24), str('{:.1f}'.format(MAX_inj)),font=num_font)
-    #deg
-    inj_depth=int(255*current_inj/MAX_inj)
-    draw.text((25, 0), str("deg"),font=digit_font)
-    draw.pieslice((-64,0)+(64,128), 270, 270+deg, fill=(inj_depth,inj_depth,inj_depth))
-    draw.pieslice((-64,0)+(64,128), 270, 315)
 
     # temp
     global temp_history
@@ -99,7 +106,7 @@ if __name__ == "__main__":
                 data_deg.input_data(statistics.mean(in_deg))
                 primitives(draw,
                     data_boost.calc_data(),
-                    data_temp.calc_data(),
+                    int(data_temp.calc_data()),
                     data_inj.calc_data(),
                     data_deg.calc_data()
                     )
