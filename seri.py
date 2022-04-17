@@ -82,7 +82,7 @@ def send_data(data):
 def receive_msg():
     mes_list=[]
     begin=time.time()
-    while time.time()-begin<TIME_OUT
+    while time.time()-begin<TIME_OUT:
         rx_data = ser.read()
         a = struct.unpack("B",rx_data)
         mes_list.append(a[0])
