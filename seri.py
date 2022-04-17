@@ -25,8 +25,8 @@ class dataset:
             self.dataid=[0x00, 0x00, 0x15]
             self.unit="%"
         elif nm=="fuel injection":
-            self.dataid=[0x00,0x00,0x3B]
-            self.unit="%"
+            self.dataid=[0x00,0x00,0x20]
+            self.unit="ms"
         elif nm=="cam angle":
             self.dataid=[0x00,0x00,0x28]
             self.unit="°"
@@ -40,8 +40,8 @@ class dataset:
             return self.nowdata
         elif self.dataid==[0x00, 0x00, 0x15]:
             return self.nowdata*100/255
-        elif self.dataid==[0x00,0x00,0x3B]:
-            return self.nowdata*100/255
+        elif self.dataid==[0x00,0x00,0x20]:
+            return self.nowdata*256/1000
         elif self.dataid==[0x00,0x00,0x28]:
             return (self.nowdata-128)/2
         elif self.dataid==[0x00,0x00,0x12]:
