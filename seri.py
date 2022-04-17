@@ -49,10 +49,10 @@ class dataset:
     def input_data(self,data):
         self.nowdata=data
         self.last_updated=time.time()
-        if self.nowdata>self.MAX:
-            self.MAX=self.nowdata
-        if self.nowdata<self.min:
-            self.min=self.nowdata
+        if data>self.MAX:
+            self.MAX=data
+        if data<self.min:
+            self.min=data
 
 
 def send_msg( buf ):
