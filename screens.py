@@ -41,20 +41,22 @@ def primitives(draw,BOOST,temp,inj,deg):
 
     # turbo gauge
     draw.ellipse((192, 0, 255, 63))
-    boost_history.appendleft(BOOST.calc_data())
+    boost_history.append(BOOST.calc_data())
     j=0
     for i in boost_history:
-        angle=(i-101.3)*180/101.3
-        tip_x=int(-29*math.sin(math.radians(angle))+224)
-        tip_y=int(29*math.cos(math.radians(angle))+32)
-        depth=255-int(j*17)
+        angle=(i-101.3)*120/101.3
+        tip_x=int(-29*math.sin(math.radians(angle+60))+224)
+        tip_y=int(29*math.cos(math.radians(angle+60))+32)
+        depth=int(j*17)
         draw.line((224, 32, tip_x, tip_y),fill=(depth,depth,depth))
         j+=1
     draw.text((213, 16), str("BOOST"),font=digit_font)
-    draw.text((194, 32), str("0.5"),font=digit_font)
-    draw.text((222, 57), str("0"),font=digit_font)
-    draw.text((245, 32), str("1.5"),font=digit_font)
-    draw.text((222, 3), str("1"),font=digit_font)
+    draw.text((220, 2), str("1.0"),font=digit_font)
+    draw.text((198, 17), str("0.5"),font=digit_font)
+    draw.text((221, 43), str("-1.0/2.0"),font=digit_font)
+    draw.text((241, 17), str("1.5"),font=digit_font)
+    draw.text((198, 43), str("0"),font=digit_font)
+    draw.text((216, 57), str("-0.5"),font=digit_font)
 
     # temp
     global temp_history
@@ -93,7 +95,7 @@ if __name__ == "__main__": #testbench
         data_deg=dataset("cam angle")
         for _ in range(100):
             with canvas(device) as draw:
-                in_boost.append(random.randint(0,255))
+                in_boost.append(202.6)
                 in_temp.append((random.randint(0,255)
                 +random.randint(0,510)
                 +random.randint(0,510)
