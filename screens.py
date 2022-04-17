@@ -15,9 +15,7 @@ from engine import get_device
 from luma.core.render import canvas
 from PIL import ImageFont
 import math
-import random
 import collections
-import statistics
 from seri import dataset
 
 temp_history=collections.deque([],78)
@@ -81,6 +79,8 @@ def primitives(draw,BOOST,temp,inj,deg):
         i+=1
 
 if __name__ == "__main__": #testbench
+    import random
+    import statistics
     try:
         device=get_device()
         in_boost=collections.deque([],3)
