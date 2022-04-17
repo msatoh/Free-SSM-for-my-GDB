@@ -124,7 +124,7 @@ def receive_data(sid,data):
         print(message)
 
 ser = serial.Serial(
-    port = "/dev/serial0",
+    port = "/dev/ttyUSB0",
     baudrate = 4800,
     #parity = serial.PARITY_NONE,
     #bytesize = serial.EIGHTBITS,

@@ -21,7 +21,7 @@ import random
 import collections
 import statistics
 
-MAX_inj=0
+MAX_inj=0.1
 temp_history=collections.deque([],78)
 
 def primitives(draw,BOOST,temp,current_inj,deg):
@@ -72,16 +72,16 @@ def primitives(draw,BOOST,temp,current_inj,deg):
         draw.point((128-(i/2),120-j))
         i+=1
 
-def scr_main(in_boost,in_temp,in_inj,in_deg):
-    device = get_device()
+def scr_main(in_boost,in_temp,in_inj,in_deg,draw):
+    #device = get_device()
     # font = ImageFont.truetype("BRZimpFont.ttf", 27)
     # text="welcome"
     # with canvas(device) as draw:
     #     char_width, char_height = draw.textsize(text=text, font=font)
     #     draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)
     # time.sleep(1)
-    with canvas(device) as draw:
-        primitives(draw,in_boost,in_temp,in_inj,in_deg)
+    #with canvas(device) as draw:
+    primitives(draw,in_boost,in_temp,in_inj,in_deg)
 
 if __name__ == "__main__":
     try:
