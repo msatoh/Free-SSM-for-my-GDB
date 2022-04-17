@@ -20,6 +20,7 @@ import math
 import random
 import collections
 import statistics
+from seri import dataset
 
 MAX_inj=0.1
 temp_history=collections.deque([],78)
@@ -72,17 +73,6 @@ def primitives(draw,BOOST,temp,current_inj,deg):
         draw.point((128-(i/2),120-j))
         i+=1
 
-def scr_main(in_boost,in_temp,in_inj,in_deg,draw):
-    #device = get_device()
-    # font = ImageFont.truetype("BRZimpFont.ttf", 27)
-    # text="welcome"
-    # with canvas(device) as draw:
-    #     char_width, char_height = draw.textsize(text=text, font=font)
-    #     draw.text(((256 - char_width) / 2,(56 - char_height) / 2), text=text,font=font)
-    # time.sleep(1)
-    #with canvas(device) as draw:
-    primitives(draw,in_boost,in_temp,in_inj,in_deg)
-
 if __name__ == "__main__":
     try:
         device=get_device()
@@ -92,20 +82,28 @@ if __name__ == "__main__":
         in_deg=collections.deque([],5)
         for _ in range(100):
             with canvas(device) as draw:
-                in_boost.append(random.uniform(0,2))
-                in_temp.append(random.randint(0,20)
-                +random.randint(0,20)
-                +random.randint(0,20)
-                +random.randint(0,20)
-                +random.randint(0,20)
-                +random.randint(0,20))
-                in_inj.append(random.uniform(0,21.5))
-                in_deg.append(random.randint(0,45))
+                in_boost.append(random.randint(0,255))
+                in_temp.append((random.randint(0,255)
+                +random.randint(0,510)
+                +random.randint(0,510)
+                +random.randint(0,255)
+                +random.randint(0,255)
+                +random.randint(0,255))/8)
+                in_inj.append(random.randint(0,255))
+                in_deg.append(random.randint(0,255))
+                data_boost=dataset("inmani pressure")
+                data_temp=dataset("coolant temp")
+                data_inj=dataset("fuel injection")
+                data_deg=dataset("cam angle")
+                data_boost.input_data(statistics.mean(in_boost))
+                data_temp.input_data(statistics.mean(in_temp))
+                data_inj.input_data(statistics.mean(in_inj))
+                data_deg.input_data(statistics.mean(in_deg))
                 primitives(draw,
-                    statistics.mean(in_boost),
-                    int(statistics.mean(in_temp)),
-                    statistics.mean(in_inj),
-                    int(statistics.mean(in_deg))
+                    data_boost.calc_data(),
+                    data_temp.calc_data(),
+                    data_inj.calc_data(),
+                    data_deg.calc_data()
                     )
     except KeyboardInterrupt:
         pass

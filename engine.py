@@ -42,16 +42,15 @@ def display_settings(device, args):
         version, args.display, iface, device.width, device.height, '-' * 60)
 
 
-def get_device(actual_args=None):
+def get_device():
     """
     Create device from command-line arguments and return it.
     """
-    if actual_args is None:
-        actual_args = [
-        "--width","256",
-        "--interface","spi",
-        "--display","ssd1322"
-        ]
+    actual_args = [
+    "--width","256",
+    "--interface","spi",
+    "--display","ssd1322"
+    ]
     parser = cmdline.create_parser(description='luma.examples arguments')
     args = parser.parse_args(actual_args)
 

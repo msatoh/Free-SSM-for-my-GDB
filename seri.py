@@ -81,7 +81,8 @@ def send_data(data):
 
 def receive_msg():
     mes_list=[]
-    while True:
+    begin=time.time()
+    while time.time()-begin<TIME_OUT
         rx_data = ser.read()
         a = struct.unpack("B",rx_data)
         mes_list.append(a[0])
@@ -106,7 +107,8 @@ def receive_data(sid,data):
     message=receive_msg()
     if not(message in [
         "format error.",
-        "check sum error."
+        "check sum error.",
+        "timed out."
         ]):
         if message[4]==0xe8:
             datalength=len(data)
@@ -119,7 +121,7 @@ def receive_data(sid,data):
             else:
                 print("number of data mismatched.")
         else:
-            print("inapropriate responce.")
+            print("inapropriate response.")
     else:
         print(message)
 
