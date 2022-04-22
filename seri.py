@@ -84,6 +84,8 @@ def receive_msg():
     begin=time.time()
     while time.time()-begin<TIME_OUT:
         rx_data = ser.read()
+        if len(rx_data)==0:
+            return "no response."
         a = struct.unpack("B",rx_data)
         mes_list.append(a[0])
         if len(mes_list)==1:
@@ -108,7 +110,8 @@ def receive_data(sid,data):
     if not(message in [
         "format error.",
         "check sum error.",
-        "timed out."
+        "timed out.",
+        "no response."
         ]):
         if message[4]==0xe8:
             datalength=len(data)
@@ -131,7 +134,7 @@ ser = serial.Serial(
     #parity = serial.PARITY_NONE,
     #bytesize = serial.EIGHTBITS,
     #stopbits = serial.STOPBITS_ONE,
-    #timeout = None,
+    timeout = 1,#[unit: second]
     #xonxoff = 0,
     #rtscts = 0,
     )
@@ -147,7 +150,7 @@ def comm(sid, data):
         send_data(data)
         print(receive_msg())
 
-if __name__=="__main__": #testbench
+if __name__=="__main__":
     data1=dataset("coolant temp")
     data2=dataset("inmani pressure")
     while True:
