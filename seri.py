@@ -28,7 +28,7 @@ class dataset:
             self.dataid=[0x00,0x00,0x20]
             self.unit="ms"
         elif nm=="cam angle":
-            self.dataid=[0x00,0x00,0x28]
+            self.dataid=[0x00,0x00,0x11]
             self.unit="°"
         elif nm=="inmani temp":
             self.dataid=[0x00,0x00,0x12]
@@ -42,7 +42,7 @@ class dataset:
             return self.nowdata*100/255
         elif self.dataid==[0x00,0x00,0x20]:
             return self.nowdata*256/1000
-        elif self.dataid==[0x00,0x00,0x28]:
+        elif self.dataid==[0x00,0x00,0x11]:
             return (self.nowdata-128)/2
         elif self.dataid==[0x00,0x00,0x12]:
             return self.nowdata-40
@@ -147,7 +147,7 @@ def comm(sid, data):
         send_data(data)
         print(receive_msg())
 
-if __name__=="__main__":
+if __name__=="__main__": #testbench
     data1=dataset("coolant temp")
     data2=dataset("inmani pressure")
     while True:
